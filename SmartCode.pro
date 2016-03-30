@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         smartcode.cpp \
-    Highlighter/highlighter.cpp
+    Highlighter/highlighter.cpp \
+    ACC/acp.cpp
 
 HEADERS  += smartcode.h \
-    Highlighter/highlighter.h
+    Highlighter/highlighter.h \
+    ACC/acp.h
 
 FORMS    += smartcode.ui

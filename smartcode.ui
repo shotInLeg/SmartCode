@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>606</width>
-    <height>393</height>
+    <width>612</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,11 @@
        <widget class="QWidget" name="wLineNumbers" native="true"/>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="pteCodeEdit"/>
+       <widget class="QTextEdit" name="pteCodeEdit">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -81,7 +85,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>606</width>
+     <width>612</width>
      <height>21</height>
     </rect>
    </property>
@@ -89,8 +93,8 @@
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="action"/>
-    <addaction name="action_2"/>
+    <addaction name="aOpenFile"/>
+    <addaction name="aSaveFile"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -98,8 +102,15 @@
     </property>
     <addaction name="aFontSettings"/>
    </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>Запуск</string>
+    </property>
+    <addaction name="aMakeCPP"/>
+   </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -110,12 +121,12 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="action">
+  <action name="aOpenFile">
    <property name="text">
     <string>Открыть файл...</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="aSaveFile">
    <property name="text">
     <string>Сохранить файл...</string>
    </property>
@@ -123,6 +134,11 @@
   <action name="aFontSettings">
    <property name="text">
     <string>Настройка шрифта</string>
+   </property>
+  </action>
+  <action name="aMakeCPP">
+   <property name="text">
+    <string>Сформировать С++ файл</string>
    </property>
   </action>
  </widget>

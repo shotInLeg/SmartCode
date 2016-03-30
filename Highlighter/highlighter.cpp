@@ -4,32 +4,29 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 {
     HighlightingRule rule;
 
-    keywordFormats["keyword"].setForeground(Qt::darkBlue);
+    keywordFormats["keyword"].setForeground(Qt::blue);
     keywordFormats["keyword"].setFontWeight(QFont::Bold);
 
-    keywordFormats["types"].setForeground(Qt::darkYellow);
+    keywordFormats["types"].setForeground(Qt::blue);
     keywordFormats["types"].setFontWeight(QFont::Bold);
 
     keywordFormats["singleLineComment"].setForeground(Qt::gray);
     keywordFormats["multiLineComment"].setForeground(Qt::gray);
 
-    keywordFormats["numbers"].setForeground(Qt::darkMagenta);
-    keywordFormats["quotation"].setForeground(Qt::darkCyan);
+    keywordFormats["numbers"].setForeground(Qt::darkYellow);
+    keywordFormats["quotation"].setForeground(Qt::darkGreen);
 
-    keywordFormats["function"].setForeground(Qt::darkBlue);
+    keywordFormats["function"].setFontWeight(QFont::Bold);
 
 
     QStringList keywordPatterns;
-    keywordPatterns << "\\bclass\\b" << "\\bconst\\b" << "\\breturn\\b"
-                    << "\\benum\\b" << "\\bexplicit\\b"
-                    << "\\bfriend\\b" << "\\binline\\b"
-                    << "\\bnamespace\\b" << "\\boperator\\b"
+    keywordPatterns << "\\bclass\\b" << "\\bstruct\\b" << "\\benum\\b"
+                    << "\\bif\\b" << "\\belse\\b" << "\\bifno\\b" << "\\bifunk\\b"
+                    << "\\bfor\\b" << "\\bwhile\\b" << "\\bdo\\b" << "\\bifunk\\b"
+                    << "\\bbreak\\b" << "\\bcontinue\\b"
                     << "\\bprivate\\b" << "\\bprotected\\b" << "\\bpublic\\b"
-                    << "\\bsignals\\b" << "\\bsigned\\b"
-                    << "\\bslots\\b" << "\\bstatic\\b" << "\\bstruct\\b"
-                    << "\\btemplate\\b" << "\\btypedef\\b" << "\\btypename\\b"
-                    << "\\bunion\\b" << "\\bunsigned\\b" << "\\bvirtual\\b"
-                    << "\\bvolatile\\b";
+                    << "\\btypedef\\b" << "\\blabel\\b" << "\\busing\\b"
+                    <<  "\\bconst\\b"  << "\\breturn\\b";
 
     QStringList typesPatterns;
     typesPatterns << "\\bnum\\b" << "\\bchar\\b" << "\\bbool\\b" << "\\bvoid\\b"
@@ -67,9 +64,9 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     rule.format = keywordFormats["keyword"];
     highlightingRules.append(rule);
 
-    rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
-    rule.format = keywordFormats["function"];
-    highlightingRules.append(rule);
+//    rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
+//    rule.format = keywordFormats["function"];
+//    highlightingRules.append(rule);
 
     rule.pattern = QRegExp("\\b[0-9]+\\b");
     rule.format = keywordFormats["numbers"];
@@ -79,7 +76,11 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     rule.format = keywordFormats["singleLineComment"];
     highlightingRules.append(rule);
 
-    rule.pattern = QRegExp("\".*\"");
+    rule.pattern = QRegExp("\"[^\"]*\"");
+    rule.format = keywordFormats["quotation"];
+    highlightingRules.append(rule);
+
+    rule.pattern = QRegExp("\"[^\"]*");
     rule.format = keywordFormats["quotation"];
     highlightingRules.append(rule);
 
