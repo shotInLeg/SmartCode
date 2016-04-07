@@ -50,16 +50,29 @@ void SmartCode::on_pteCodeEdit_cursorPositionChanged()
 
 void SmartCode::on_aMakeCPP_triggered()
 {
+    QString dir = QFileDialog::getSaveFileName(this, tr("Сохранить файл..."),"",tr("C++ Source File (*.cpp)"));
+
     QString textFile = ui->pteCodeEdit->toPlainText();
 
     ACP parser;
     QVector<QString> tokens = parser.parse(textFile);
 
-
+    QByteArray cppFile;
     for(int i = 0; i < tokens.size(); i++)
     {
+        cppFile.append( tokens.at(i)+"\n" );
         qDebug() << tokens.at(i);
     }
+
+    QFile saveFile(dir);
+    if(!saveFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        return;
+    }
+
+    saveFile.write( cppFile );
+
+    saveFile.close();
 
 }
 

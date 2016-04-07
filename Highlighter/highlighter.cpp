@@ -80,9 +80,9 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     rule.format = keywordFormats["quotation"];
     highlightingRules.append(rule);
 
-    rule.pattern = QRegExp("\"[^\"]*");
-    rule.format = keywordFormats["quotation"];
-    highlightingRules.append(rule);
+//    rule.pattern = QRegExp("\"[^\"]*");
+//    rule.format = keywordFormats["quotation"];
+//    highlightingRules.append(rule);
 
     commentStartExpression = QRegExp("/\\*");
     commentEndExpression = QRegExp("\\*/");
