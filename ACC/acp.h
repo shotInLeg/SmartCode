@@ -36,7 +36,8 @@ class ACP
 {
 public:
     ACP();
-    QVector<QString> parse( const QString& text );
+    QVector<QPair<QString, QString> > parse( const QString& text );
+    QString parseString( const QString& text );
 
 private:
     QVector<ParseRule> rules;

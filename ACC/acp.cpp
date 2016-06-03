@@ -16,6 +16,26 @@ ACP::ACP()
                     <<  "\\bconst\\b"  << "\\breturn\\b";
 
 
+    rules.push_back(ParseRule("type", "\\bnum\\b"));
+    rules.push_back(ParseRule("type", "num\\s"));
+    rules.push_back(ParseRule("type", "\\bchar\\b"));
+    rules.push_back(ParseRule("type", "char\\s"));
+    rules.push_back(ParseRule("type", "\\bbool\\b"));
+    rules.push_back(ParseRule("type", "bool\\s"));
+    rules.push_back(ParseRule("type", "\\bstr\\b"));
+    rules.push_back(ParseRule("type", "str\\s"));
+
+    rules.push_back(ParseRule("operator", "\\bif\\b")); //если да
+    rules.push_back(ParseRule("operator", "\\belse\\b")); // иначе
+    rules.push_back(ParseRule("operator", "\\bifno\\b")); // если нет
+    rules.push_back(ParseRule("operator", "\\bifunk\\b")); // если незвестно
+
+    rules.push_back(ParseRule("operator", "\\bfor\\b"));
+    rules.push_back(ParseRule("operator", "\\bwhile\\b"));
+    rules.push_back(ParseRule("operator", "\\bdo\\b"));
+    rules.push_back(ParseRule("operator", "\\bbreak\\b"));
+    rules.push_back(ParseRule("operator", "\\bcontinue\\b"));
+
 
     rules.push_back(ParseRule("value", "\"[^\"]*\""));
 
@@ -31,28 +51,6 @@ ACP::ACP()
     {
         rules.push_back(ParseRule("value", pattern));
     }
-
-
-//    rules.push_back(ParseRule("type", "\\bnum\\b"));
-//    //rules.push_back(ParseRule("type", "num\\s"));
-//    rules.push_back(ParseRule("type", "\\bchar\\b"));
-//    //rules.push_back(ParseRule("type", "char\\s"));
-//    rules.push_back(ParseRule("type", "\\bbool\\b"));
-//    //rules.push_back(ParseRule("type", "bool\\s"));
-//    rules.push_back(ParseRule("type", "\\bstr\\b"));
-//    //rules.push_back(ParseRule("type", "str\\s"));
-
-//    rules.push_back(ParseRule("operator", "\\bif\\b")); //если да
-//    rules.push_back(ParseRule("operator", "\\belse\\b")); // иначе
-//    rules.push_back(ParseRule("operator", "\\bifno\\b")); // если нет
-//    rules.push_back(ParseRule("operator", "\\bifunk\\b")); // если незвестно
-
-//    rules.push_back(ParseRule("operator", "\\bfor\\b"));
-//    rules.push_back(ParseRule("operator", "\\bwhile\\b"));
-//    rules.push_back(ParseRule("operator", "\\bdo\\b"));
-//    rules.push_back(ParseRule("operator", "\\bbreak\\b"));
-//    rules.push_back(ParseRule("operator", "\\bcontinue\\b"));
-
 
     rules.push_back(ParseRule("operator", "\\x0028")); // (
     rules.push_back(ParseRule("operator", "\\x0029")); // )
@@ -103,9 +101,9 @@ ACP::ACP()
 
 }
 
-QVector<QString> ACP::parse(const QString &text)
+QVector<QPair<QString,QString> > ACP::parse(const QString &text)
 {
-    QVector<QString> tokens;
+    QVector<QPair<QString,QString> >  tokens;
 
     QString currentText = text;
     currentText = currentText.replace("\\x0009", "    ");
@@ -115,6 +113,7 @@ QVector<QString> ACP::parse(const QString &text)
 
         int minPos = currentText.size()+1;
         QRegExp curRegExp = rules.at(0).rule;
+        int indexRule = 0;
         for(int numRule = 0; numRule < rules.size(); numRule++)
         {
             int index = rules.at(numRule).rule.indexIn(currentText);
@@ -123,6 +122,7 @@ QVector<QString> ACP::parse(const QString &text)
             {
                 minPos = index;
                 curRegExp = rules.at(numRule).rule;
+                indexRule = numRule;
             }
         }
 
@@ -141,7 +141,7 @@ QVector<QString> ACP::parse(const QString &text)
                 token += currentText.at(i);
             }
 
-            tokens.push_back( token );
+            tokens.push_back( {rules.at(indexRule).name, token} );
 
             qDebug() << token << curRegExp.pattern();
 
@@ -156,5 +156,80 @@ QVector<QString> ACP::parse(const QString &text)
     }
 
     return tokens;
+}
+
+QString ACP::parseString(const QString &text)
+{
+    QVector<QPair<QString,QString> >  tokens = parse(text);
+
+    for(int i = 0; i < tokens.size(); i++)
+    {
+        if( tokens.at(i).first == "type" )
+            if( tokens.at(i).second == "num"  )
+                tokens[i] = {"type", "ANum32"};
+            if( tokens.at(i).second == "num16"  )
+                tokens[i] = {"type", "ANum16"};
+            else if( tokens.at(i).second == "num32" )
+                tokens[i] = {"type", "ANum32"};
+            else if( tokens.at(i).second == "num64" )
+                tokens[i] = {"type", "ANum64"};
+            else if( tokens.at(i).second == "num128" )
+                tokens[i] = {"type", "ANum128"};
+            else if( tokens.at(i).second == "charA" )
+                tokens[i] = {"type", "ACharASCII"};
+            else if( tokens.at(i).second == "byte" )
+                tokens[i] = {"type", "AByte"};
+            else if( tokens.at(i).second == "bit" )
+                tokens[i] = {"type", "ABit"};
+
+            else if( tokens.at(i).second == "str" )
+                tokens[i] = {"type", "AArray<ACharASCII, Array>"};
+            else if( tokens.at(i).second == "num[a]" )
+                tokens[i] = {"type", "AArray<ANum32, Array>"};
+            else if( tokens.at(i).second == "num16[a]" )
+                tokens[i] = {"type", "AArray<ANum16, Array>"};
+            else if( tokens.at(i).second == "num32[a]" )
+                tokens[i] = {"type", "AArray<ANum32, Array>"};
+            else if( tokens.at(i).second == "num64[a]" )
+                tokens[i] = {"type", "AArray<ANum64, Array>"};
+            else if( tokens.at(i).second == "num128[a]" )
+                tokens[i] = {"type", "AArray<ANum128, Array>"};
+            else if( tokens.at(i).second == "charA[a]" )
+                tokens[i] = {"type", "AArray<ACharASCII, Array>"};
+            else if( tokens.at(i).second == "byte[a]" )
+                tokens[i] = {"type", "AArray<AByte, Array>"};
+            else if( tokens.at(i).second == "bit[a]" )
+                tokens[i] = {"type", "AArray<ABit, Array>"};
+
+            else if( tokens.at(i).second == "num[m]" )
+                tokens[i] = {"type", "AArray<ANum32, Matrix>"};
+            else if( tokens.at(i).second == "num16[m]" )
+                tokens[i] = {"type", "AArray<ANum16, Matrix>"};
+            else if( tokens.at(i).second == "num32[m]" )
+                tokens[i] = {"type", "AArray<ANum32, Matrix>"};
+            else if( tokens.at(i).second == "num64[m]" )
+                tokens[i] = {"type", "AArray<ANum64, Matrix>"};
+            else if( tokens.at(i).second == "num128[m]" )
+                tokens[i] = {"type", "AArray<ANum128, Matrix>"};
+            else if( tokens.at(i).second == "charA[m]" )
+                tokens[i] = {"type", "AArray<ACharASCII, Matrix>"};
+            else if( tokens.at(i).second == "byte[m]" )
+                tokens[i] = {"type", "AArray<AByte, Matrix>"};
+            else if( tokens.at(i).second == "bit[m]" )
+                tokens[i] = {"type", "AArray<ABit, Matrix>"};
+    }
+
+    QString cpp_text = "";
+    cpp_text += "#include <Archi/ATL/ATL.h>\n";
+    cpp_text += "#include <Archi/ACL/ACL.h>\n\n";
+    for(int i = 0; i < tokens.size(); i++)
+    {
+        if( tokens.at(i).second == "{" || tokens.at(i).second == "}" || tokens.at(i).second == ";" )
+            cpp_text += tokens.at(i).second + "\n";
+        else
+            cpp_text += tokens.at(i).second + " ";
+    }
+
+    return cpp_text;
 }
 

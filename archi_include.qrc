@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/archi/include/types" lang="cpp">
+        <file>Archi/ATL/abit.cpp</file>
+        <file>Archi/ATL/abit.h</file>
+        <file>Archi/ATL/abool.cpp</file>
+        <file>Archi/ATL/abool.h</file>
+        <file>Archi/ATL/abyte.cpp</file>
+        <file>Archi/ATL/abyte.h</file>
+        <file>Archi/ATL/acharascii.cpp</file>
+        <file>Archi/ATL/acharascii.h</file>
+        <file>Archi/ATL/anum16.cpp</file>
+        <file>Archi/ATL/anum16.h</file>
+    </qresource>
+    <qresource prefix="/archi/include/containers">
+        <file>Archi/ACL/aarray.cpp</file>
+        <file>Archi/ACL/aarray.h</file>
+        <file>Archi/ACL/acl.h</file>
+        <file>Archi/ACL/acontainer_functions.h</file>
+        <file>Archi/ACL/aexception.h</file>
+        <file>Archi/ACL/aiterator.h</file>
+        <file>Archi/ACL/aiterator_functions.h</file>
+        <file>Archi/ACL/array.h</file>
+        <file>Archi/ACL/asize.h</file>
+        <file>Archi/ACL/container_data.h</file>
+        <file>Archi/ACL/matrix.h</file>
+    </qresource>
+</RCC>

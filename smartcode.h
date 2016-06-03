@@ -5,6 +5,7 @@
 #include <QFontDialog>
 #include <QFile>
 #include <QFileDialog>
+#include <QDirModel>
 
 #include <QPainter>
 
@@ -44,10 +45,23 @@ private slots:
 
 
 
+    void on_aOpenProject_triggered();
+
+    void on_aCreateProject_triggered();
+
+    void on_tvProjectStruct_doubleClicked(const QModelIndex &index);
+
+    void on_aCreateFile_triggered();
+
+    void on_aSave_triggered();
+
 private:
     Ui::SmartCode *ui;
-
+    QDirModel * dirModel;
     Highlighter *highlighter;
+
+    QString currentPath;
+    QString currentFile;
 };
 
 #endif // SMARTCODE_H

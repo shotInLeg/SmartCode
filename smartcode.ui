@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>612</width>
-    <height>400</height>
+    <width>1000</width>
+    <height>585</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>16777215</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>SmartCode</string>
@@ -71,6 +83,12 @@
       </item>
       <item>
        <widget class="QTextEdit" name="pteCodeEdit">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -85,7 +103,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>612</width>
+     <width>1000</width>
      <height>21</height>
     </rect>
    </property>
@@ -93,8 +111,12 @@
     <property name="title">
      <string>Файл</string>
     </property>
+    <addaction name="aCreateFile"/>
+    <addaction name="aCreateProject"/>
+    <addaction name="aOpenProject"/>
     <addaction name="aOpenFile"/>
     <addaction name="aSaveFile"/>
+    <addaction name="aSave"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -139,6 +161,26 @@
   <action name="aMakeCPP">
    <property name="text">
     <string>Сформировать С++ файл</string>
+   </property>
+  </action>
+  <action name="aOpenProject">
+   <property name="text">
+    <string>Открыть проект...</string>
+   </property>
+  </action>
+  <action name="aCreateProject">
+   <property name="text">
+    <string>Создать проект...</string>
+   </property>
+  </action>
+  <action name="aCreateFile">
+   <property name="text">
+    <string>Создать файл...</string>
+   </property>
+  </action>
+  <action name="aSave">
+   <property name="text">
+    <string>Сохранить</string>
    </property>
   </action>
  </widget>
