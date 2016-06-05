@@ -41,7 +41,7 @@
          <number>20</number>
         </property>
         <item>
-         <widget class="QTreeView" name="tvProjectStruct">
+         <widget class="QTreeWidget" name="tvProjectStruct">
           <property name="minimumSize">
            <size>
             <width>200</width>
@@ -54,6 +54,11 @@
             <height>300</height>
            </size>
           </property>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
          </widget>
         </item>
         <item>
@@ -104,7 +109,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

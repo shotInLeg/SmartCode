@@ -14,8 +14,7 @@ SmartCode::SmartCode(QWidget *parent) : QMainWindow(parent),
     ui->pteCodeEdit->setFont( QFont("Consolas", 11) );
     highlighter = new Highlighter( ui->pteCodeEdit->document() );
 
-    ui->tvProjectStruct->setModel(dirModel);
-    ui->tvProjectStruct->setRootIndex(dirModel->index(""));
+    //updateTreeWidget();
 }
 
 SmartCode::~SmartCode()
@@ -167,9 +166,14 @@ void SmartCode::on_aMakeCPP_triggered()
 
 void SmartCode::on_tvProjectStruct_doubleClicked(const QModelIndex &index)
 {
-    QString dir = dirModel->filePath(index);
 
-    QFile openFile(dir);
+}
+
+void SmartCode::on_tvProjectStruct_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    qDebug() << currentPath + "/" + item->text(column);
+
+    QFile openFile( currentPath + "/" + item->text(column) );
     if(!openFile.open(QIODevice::ReadOnly))
     {
         return;
@@ -179,6 +183,6 @@ void SmartCode::on_tvProjectStruct_doubleClicked(const QModelIndex &index)
 
     ui->pteCodeEdit->setPlainText( QString::fromStdString(bytesFromFile.toStdString()) );
 
-    currentFile = dir;
+    currentFile = currentPath + "/" + item->text(column);
     openFile.close();
 }

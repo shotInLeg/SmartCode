@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QDirModel>
-
+#include <QTreeWidgetItem>
 #include <QPainter>
 
 #include "Highlighter/highlighter.h"
@@ -41,10 +41,6 @@ private slots:
     //Меню "Запуск"
     void on_aMakeCPP_triggered();
 
-
-
-
-
     void on_aOpenProject_triggered();
 
     void on_aCreateProject_triggered();
@@ -54,6 +50,12 @@ private slots:
     void on_aCreateFile_triggered();
 
     void on_aSave_triggered();
+
+    void updateTreeWidget();
+
+    void printDir(const QDir& dir, QTreeWidgetItem *item);
+
+    void on_tvProjectStruct_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
 private:
     Ui::SmartCode *ui;
