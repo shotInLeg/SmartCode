@@ -125,10 +125,7 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 
 
 
-    /*rules.push_back(ParseRule("operation", "\\x002B")); // +
-    rules.push_back(ParseRule("operation", "\\x002D")); // -
-    rules.push_back(ParseRule("operation", "\\x002A")); // *
-    rules.push_back(ParseRule("operation", "\\x002F")); // /
+    /*
     rules.push_back(ParseRule("operation", "\\x005C")); // \\
     rules.push_back(ParseRule("operation", "\\x0025")); // %
     rules.push_back(ParseRule("operation", "\\x005E")); // ^
