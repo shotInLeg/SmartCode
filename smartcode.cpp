@@ -5,14 +5,18 @@ SmartCode::SmartCode(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::SmartCode)
 {
     ui->setupUi(this);
+    codeEditor = new CodeEditor();
+    ui->textBoxLayout->addWidget(codeEditor);
+
     currentPath = "";
     currentFile = "";
     dirModel = new QDirModel();
     dirModel->removeColumn(0);
 
-    ui->pteCodeEdit->setTabStopWidth ( 33 );
-    ui->pteCodeEdit->setFont( QFont("Consolas", 11) );
-    highlighter = new Highlighter( ui->pteCodeEdit->document() );
+    codeEditor->setTabStopWidth ( 33 );
+    codeEditor->setFont( QFont("Consolas", 11) );
+    codeEditor->setStyleSheet("color: rgb(255, 255, 255); border: 0px solid black;");
+    highlighter = new Highlighter( codeEditor->document() );
 
     //updateTreeWidget();
 }
@@ -25,33 +29,23 @@ SmartCode::~SmartCode()
 void SmartCode::paintEvent ( QPaintEvent * event )
 {
     /*QPainter painter;
-    painter.begin( ui->pteCodeEdit->viewport() );
+    painter.begin( codeEditor->viewport() );
     painter.drawLine(0,0,300, 50);
 
-    QRect r = ui->pteCodeEdit->cursorRect();
+    QRect r = codeEditor->cursorRect();
     r.setX( 0 );
-    r.setWidth( ui->pteCodeEdit->viewport()->width() );
+    r.setWidth( codeEditor->viewport()->width() );
     painter.fillRect( r, QBrush( Qt::blue ) );*/
 }
 
 void SmartCode::on_aFontSettings_triggered()
 {
     bool ok = false;
-    QFont font = QFontDialog::getFont(&ok, ui->pteCodeEdit->font(), this);
+    QFont font = QFontDialog::getFont(&ok, codeEditor->font(), this);
     if (ok)
     {
-        ui->pteCodeEdit->setFont( font );
+        codeEditor->setFont( font );
     }
-}
-
-
-void SmartCode::on_pteCodeEdit_cursorPositionChanged()
-{
-    int lineNumber = ui->pteCodeEdit->textCursor().blockNumber();
-    //QTextBlock block = ui->pteCodeEdit->textCursor().block();
-
-    qDebug() << lineNumber;
-    ui->pteCodeEdit->document()->findBlockByLineNumber( lineNumber );
 }
 
 void SmartCode::on_aMakeCPP_triggered()
@@ -140,7 +134,7 @@ void SmartCode::on_aMakeCPP_triggered()
     }
 
 
-    QString textFile = ui->pteCodeEdit->toPlainText();
+    QString textFile = codeEditor->toPlainText();
 
     ACP parser;
     QVector< QPair<QString, QString> > tokens = parser.parse(textFile);
@@ -181,7 +175,7 @@ void SmartCode::on_tvProjectStruct_itemDoubleClicked(QTreeWidgetItem *item, int 
 
     QByteArray bytesFromFile = openFile.readAll();
 
-    ui->pteCodeEdit->setPlainText( QString::fromStdString(bytesFromFile.toStdString()) );
+    codeEditor->setPlainText( QString::fromStdString(bytesFromFile.toStdString()) );
 
     currentFile = currentPath + "/" + item->text(column);
     openFile.close();

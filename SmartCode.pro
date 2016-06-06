@@ -17,13 +17,18 @@ SOURCES += main.cpp\
         smartcode.cpp \
     Highlighter/highlighter.cpp \
     ACC/acp.cpp \
-    menufile.cpp
+    menufile.cpp \
+    CreateProjectForm/createproject.cpp \
+    CodeEditor/codeeditor.cpp
 
 HEADERS  += smartcode.h \
     Highlighter/highlighter.h \
-    ACC/acp.h
+    ACC/acp.h \
+    CreateProjectForm/createproject.h \
+    CodeEditor/codeeditor.h
 
-FORMS    += smartcode.ui
+FORMS    += smartcode.ui \
+    CreateProjectForm/createproject.ui
 
 RESOURCES += \
     archi_include.qrc

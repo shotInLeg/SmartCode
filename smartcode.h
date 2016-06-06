@@ -9,6 +9,8 @@
 #include <QTreeWidgetItem>
 #include <QPainter>
 
+#include <CodeEditor/codeeditor.h>
+#include <CreateProjectForm/createproject.h>
 #include "Highlighter/highlighter.h"
 #include "ACC/acp.h"
 
@@ -28,7 +30,6 @@ private slots:
     void paintEvent( QPaintEvent * event );
 
     //Текстовое поле
-    void on_pteCodeEdit_cursorPositionChanged();
 
 
     //Меню "Файл"
@@ -44,10 +45,14 @@ private slots:
     void on_aOpenProject_triggered();
 
     void on_aCreateProject_triggered();
+    void projectCreated(QString projectPath, QWidget *w);
+    void createCancel(QWidget* w);
 
     void on_tvProjectStruct_doubleClicked(const QModelIndex &index);
 
     void on_aCreateFile_triggered();
+
+
 
     void on_aSave_triggered();
 
@@ -61,9 +66,12 @@ private:
     Ui::SmartCode *ui;
     QDirModel * dirModel;
     Highlighter *highlighter;
+    CodeEditor * codeEditor;
 
     QString currentPath;
     QString currentFile;
+
+    QVector< QPair<QString, QByteArray> > projectFiles;
 };
 
 #endif // SMARTCODE_H

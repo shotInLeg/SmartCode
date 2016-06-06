@@ -6,44 +6,42 @@ void SmartCode::on_aCreateFile_triggered()
 {
     QString dir = QFileDialog::getSaveFileName(this, tr("Создать файл..."), currentPath, tr("Archi Source File (*.arc)"));
 
+    if(QFileInfo(dir).baseName() == QFileInfo(dir).fileName())
+        dir += ".arc";
+
     QFile saveFile(dir);
     if(!saveFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
     {
         return;
     }
-
-    saveFile.write("//Created by SmartCode");
+    saveFile.write("//Created Source File by SmartCode");
 
     saveFile.close();
 
     updateTreeWidget();
 }
 
-void SmartCode::on_aCreateProject_triggered()
+void SmartCode::projectCreated(QString projectPath, QWidget* w)
 {
-    QString file = QFileDialog::getSaveFileName(this, tr("Создать проект..."), "", tr("Archi Build File (*.abc)"));
-    QFileInfo openFile(file);
+    w->close();
 
-
-    QDir dir = openFile.absoluteDir();
-    dir.mkdir( openFile.baseName() );
-    dir.cd( openFile.baseName() );
-
-
-    QFile saveFile(dir.absoluteFilePath(openFile.fileName()));
-    if(!saveFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
-    {
-        return;
-    }
-
-    saveFile.write( QByteArray().append("["+openFile.baseName()+"]") );
-
-
-    currentPath = QFileInfo(saveFile).absolutePath();
-
-    saveFile.close();
+    currentPath = projectPath;
 
     updateTreeWidget();
+}
+
+void SmartCode::createCancel(QWidget *w)
+{
+    w->close();
+}
+
+void SmartCode::on_aCreateProject_triggered()
+{
+    CreateProject * dialog = new CreateProject;
+    dialog->show();
+
+    connect(dialog, SIGNAL( createdDone(QString, QWidget*) ), this, SLOT( projectCreated(QString, QWidget*) ) );
+    connect(dialog, SIGNAL( createdCancel(QWidget*)), this, SLOT( projectCreateCancel(QWidget*) ) );
 }
 
 void SmartCode::on_aOpenProject_triggered()
@@ -70,7 +68,7 @@ void SmartCode::on_aOpenFile_triggered()
 
     QByteArray bytesFromFile = openFile.readAll();
 
-    ui->pteCodeEdit->setPlainText( QString::fromStdString(bytesFromFile.toStdString()) );
+    codeEditor->setPlainText( QString::fromStdString(bytesFromFile.toStdString()) );
 
     currentFile = dir;
     openFile.close();
@@ -86,7 +84,7 @@ void SmartCode::on_aSaveFile_triggered()
         return;
     }
 
-    saveFile.write( QByteArray().append(ui->pteCodeEdit->toPlainText()) );
+    saveFile.write( QByteArray().append(codeEditor->toPlainText()) );
 
     saveFile.close();
 }
@@ -99,7 +97,7 @@ void SmartCode::on_aSave_triggered()
         return;
     }
 
-    saveFile.write( QByteArray().append(ui->pteCodeEdit->toPlainText()) );
+    saveFile.write( QByteArray().append(codeEditor->toPlainText()) );
 
     saveFile.close();
 }
@@ -108,34 +106,18 @@ void SmartCode::updateTreeWidget()
 {
     ui->tvProjectStruct->clear();
 
-    qDebug() << currentPath;
-
     QDir dir(currentPath);
-
-    qDebug() << QFileInfo(currentPath).fileName() << dir.absolutePath();
 
     QTreeWidgetItem *rootItem = new QTreeWidgetItem(ui->tvProjectStruct);
     rootItem->setText(0, QFileInfo(currentPath).fileName() );
     ui->tvProjectStruct->addTopLevelItem(rootItem);
 
     printDir(dir, rootItem);
-
-    //qDebug() << index;
 }
 
 void SmartCode::printDir(const QDir &dir, QTreeWidgetItem * item )
 {
     QFileInfoList dirContent = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
-
-
-
-    for(int i = 0; i < dirContent.size(); i++)
-    {
-        if( dirContent.at(i).isDir() )
-            qDebug() << "DIR" << " >>>> " << dirContent.at(i).absolutePath() + "/" + dirContent.at(i).fileName();
-        else
-            qDebug() << "FILE" << " >>>> " << dir.absolutePath() << ">>" << dirContent.at(i).fileName();
-    }
 
     for(int i = 0; i < dirContent.size(); i++)
     {
@@ -143,8 +125,6 @@ void SmartCode::printDir(const QDir &dir, QTreeWidgetItem * item )
 
         if( dirContent.at(i).isDir() )
         {
-            //qDebug() << "if dir >>>>" << dirContent.at(i).path();
-
             QDir subDir(dirContent.at(i).absolutePath() + "/" + dirContent.at(i).fileName());
             subItem->setText(0, dirContent.at(i).fileName() );
             printDir(subDir, subItem);
@@ -152,6 +132,17 @@ void SmartCode::printDir(const QDir &dir, QTreeWidgetItem * item )
         else
         {
             subItem->setText(0, dirContent.at(i).fileName() );
+
+            QFile openFile( dirContent.at(i).absolutePath() );
+            if(!openFile.open(QIODevice::ReadOnly))
+            {
+                return;
+            }
+            QByteArray bytesFromFile = openFile.readAll();
+
+            projectFiles.push_back( {dirContent.at(i).absolutePath(), bytesFromFile } );
+
+            openFile.close();
         }
     }
 }

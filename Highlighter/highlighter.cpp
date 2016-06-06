@@ -4,17 +4,19 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 {
     HighlightingRule rule;
 
-    keywordFormats["keyword"].setForeground(Qt::blue);
-    keywordFormats["keyword"].setFontWeight(QFont::Bold);
+    keywordFormats["operation"].setForeground(QBrush(QColor(234,42,228)));
 
-    keywordFormats["types"].setForeground(Qt::blue);
-    keywordFormats["types"].setFontWeight(QFont::Bold);
+    keywordFormats["keyword"].setForeground(QBrush(QColor(234,42,228)));
+    //keywordFormats["keyword"].setFontWeight(QFont::Bold);
+
+    keywordFormats["types"].setForeground(QBrush(QColor(42,128,234)));
+    //keywordFormats["types"].setFontWeight(QFont::Bold);
 
     keywordFormats["singleLineComment"].setForeground(Qt::gray);
     keywordFormats["multiLineComment"].setForeground(Qt::gray);
 
-    keywordFormats["numbers"].setForeground(Qt::darkYellow);
-    keywordFormats["quotation"].setForeground(Qt::darkGreen);
+    keywordFormats["numbers"].setForeground(QBrush(QColor(150,66,255)));
+    keywordFormats["quotation"].setForeground(QBrush(QColor(255,134,11)));
 
     keywordFormats["function"].setFontWeight(QFont::Bold);
 
@@ -32,6 +34,45 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     typesPatterns << "\\bnum\\b" << "\\bchar\\b" << "\\bbool\\b" << "\\bvoid\\b"
                   <<"\\bstr\\b";
 
+
+    rule.pattern = QRegExp("\\x0028"); // (
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x0029"); // )
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x007B"); // {
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x007D"); // }
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x005B"); // [
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x005D"); // ]
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+
+    rule.pattern = QRegExp("\\x002B+\\x002B+"); // ++
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x002D+\\x002D"); // --
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+
+    rule.pattern = QRegExp("\\x002B"); // +
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x002D"); // -
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x002A"); // *
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
+    rule.pattern = QRegExp("\\x002F"); // /
+    rule.format = keywordFormats["operation"];
+    highlightingRules.append(rule);
 
     foreach (const QString &pattern, keywordPatterns)
     {
@@ -79,6 +120,41 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     rule.pattern = QRegExp("\"[^\"]*\"");
     rule.format = keywordFormats["quotation"];
     highlightingRules.append(rule);
+
+
+
+
+
+    /*rules.push_back(ParseRule("operation", "\\x002B")); // +
+    rules.push_back(ParseRule("operation", "\\x002D")); // -
+    rules.push_back(ParseRule("operation", "\\x002A")); // *
+    rules.push_back(ParseRule("operation", "\\x002F")); // /
+    rules.push_back(ParseRule("operation", "\\x005C")); // \\
+    rules.push_back(ParseRule("operation", "\\x0025")); // %
+    rules.push_back(ParseRule("operation", "\\x005E")); // ^
+
+    rules.push_back(ParseRule("operator", "\\x002C")); // ,
+    rules.push_back(ParseRule("operation", "\\x002E")); // .
+    rules.push_back(ParseRule("operator", "\\x003B")); // ;
+
+    rules.push_back(ParseRule("operation", "\\x003C+\\x003D")); // <=
+    rules.push_back(ParseRule("operation", "\\x003E+\\x003D")); // >=
+    rules.push_back(ParseRule("operation", "\\x0021+\\x003D")); // !=
+    rules.push_back(ParseRule("operation", "\\x003D+\\x003D")); // ==
+    rules.push_back(ParseRule("operation", "\\x0021")); // !
+    rules.push_back(ParseRule("operation", "\\x003C")); // <
+    rules.push_back(ParseRule("operation", "\\x003D")); // =
+    rules.push_back(ParseRule("operation", "\\x003E")); // >
+
+    rules.push_back(ParseRule("operator", "\\x003F")); // ?
+    rules.push_back(ParseRule("operator", "\\x003A")); // :
+
+    rules.push_back(ParseRule("operation", "\\x0026+\\x0026")); // &&
+    rules.push_back(ParseRule("operation", "\\x007C+\\x007C")); // ||
+
+    rules.push_back(ParseRule("operation", "\\x007E")); // ~
+    rules.push_back(ParseRule("operation", "\\x0026")); // &
+    rules.push_back(ParseRule("operation", "\\x007C")); // |*/
 
 //    rule.pattern = QRegExp("\"[^\"]*");
 //    rule.format = keywordFormats["quotation"];
