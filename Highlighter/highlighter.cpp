@@ -2,7 +2,10 @@
 
 Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 {
-    HighlightingRule rule;
+
+
+    keywordFormats["operator"].setForeground(QBrush(QColor(234,42,228)));
+    keywordFormats["operator"].setFontItalic(true);
 
     keywordFormats["operation"].setForeground(QBrush(QColor(234,42,228)));
 
@@ -32,47 +35,45 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 
     QStringList typesPatterns;
     typesPatterns << "\\bnum\\b" << "\\bchar\\b" << "\\bbool\\b" << "\\bvoid\\b"
-                  <<"\\bstr\\b";
+                  <<"\\bstr\\b" << "\\buni\\b";
 
 
-    rule.pattern = QRegExp("\\x0028"); // (
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x0029"); // )
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x007B"); // {
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x007D"); // }
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x005B"); // [
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x005D"); // ]
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
+    HighlightingRule rule;
 
-    rule.pattern = QRegExp("\\x002B+\\x002B+"); // ++
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x002D+\\x002D"); // --
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
+    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x0028") ) ); // (
+    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x0029") ) ); // (
+    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x007B") ) ); // {
+    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x007D") ) ); // }
+    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x005B") ) ); // [
+    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x005D") ) ); // ]
 
-    rule.pattern = QRegExp("\\x002B"); // +
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x002D"); // -
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x002A"); // *
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
-    rule.pattern = QRegExp("\\x002F"); // /
-    rule.format = keywordFormats["operation"];
-    highlightingRules.append(rule);
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003B") ) ); // ;
+
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002B+\\x002B+") ) ); // ++
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002D+\\x002D") ) ); // --
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002B") ) ); // +
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002D") ) ); // -
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002A") ) ); // *
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002F") ) ); // /
+
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x005C") ) ); // \\
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0025") ) ); // %
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x005E") ) ); // ^
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003C+\\x003D") ) ); // <=
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003E+\\x003D") ) ); // =>
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0021+\\x003D") ) ); // !=
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003D+\\x003D") ) ); // ==
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003E") ) ); // >
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003C") ) ); // <
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0021") ) ); // !
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003D") ) ); // =
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003F") ) ); // ?
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003A") ) ); // :
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0026+\\x0026") ) ); // &&
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x007C+\\x007C") ) ); // ||
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x007E") ) ); // ~
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0026") ) ); // &
+    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x007C") ) ); // |
 
     foreach (const QString &pattern, keywordPatterns)
     {
@@ -122,37 +123,6 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     highlightingRules.append(rule);
 
 
-
-
-
-    /*
-    rules.push_back(ParseRule("operation", "\\x005C")); // \\
-    rules.push_back(ParseRule("operation", "\\x0025")); // %
-    rules.push_back(ParseRule("operation", "\\x005E")); // ^
-
-    rules.push_back(ParseRule("operator", "\\x002C")); // ,
-    rules.push_back(ParseRule("operation", "\\x002E")); // .
-    rules.push_back(ParseRule("operator", "\\x003B")); // ;
-
-    rules.push_back(ParseRule("operation", "\\x003C+\\x003D")); // <=
-    rules.push_back(ParseRule("operation", "\\x003E+\\x003D")); // >=
-    rules.push_back(ParseRule("operation", "\\x0021+\\x003D")); // !=
-    rules.push_back(ParseRule("operation", "\\x003D+\\x003D")); // ==
-    rules.push_back(ParseRule("operation", "\\x0021")); // !
-    rules.push_back(ParseRule("operation", "\\x003C")); // <
-    rules.push_back(ParseRule("operation", "\\x003D")); // =
-    rules.push_back(ParseRule("operation", "\\x003E")); // >
-
-    rules.push_back(ParseRule("operator", "\\x003F")); // ?
-    rules.push_back(ParseRule("operator", "\\x003A")); // :
-
-    rules.push_back(ParseRule("operation", "\\x0026+\\x0026")); // &&
-    rules.push_back(ParseRule("operation", "\\x007C+\\x007C")); // ||
-
-    rules.push_back(ParseRule("operation", "\\x007E")); // ~
-    rules.push_back(ParseRule("operation", "\\x0026")); // &
-    rules.push_back(ParseRule("operation", "\\x007C")); // |*/
-
 //    rule.pattern = QRegExp("\"[^\"]*");
 //    rule.format = keywordFormats["quotation"];
 //    highlightingRules.append(rule);
@@ -183,7 +153,7 @@ void Highlighter::highlightBlock(const QString &text)
                 }
                 new_type += "\\b";
 
-                qDebug() << new_type;
+                //qDebug() << new_type;
 
                 HighlightingRule new_rule;
                 new_rule.pattern = QRegExp(new_type);
