@@ -19,6 +19,8 @@ void SmartCode::on_aCreateFile_triggered()
     saveFile.close();
 
     updateTreeWidget();
+
+    ui->swPages->setCurrentIndex(0);
 }
 
 void SmartCode::projectCreated(QString projectPath, QWidget* w)
@@ -28,6 +30,8 @@ void SmartCode::projectCreated(QString projectPath, QWidget* w)
     currentPath = projectPath;
 
     updateTreeWidget();
+
+    ui->swPages->setCurrentIndex(0);
 }
 
 void SmartCode::createCancel(QWidget *w)
@@ -48,11 +52,16 @@ void SmartCode::on_aOpenProject_triggered()
 {
     QString file = QFileDialog::getOpenFileName(this, tr("Открыть проект..."),"",tr("Archi Build File (*.abc)"));
 
+    if(!file.contains(".abc"))
+        return;
+
     QFileInfo openFile(file);
 
     currentPath = openFile.absoluteDir().absolutePath();
 
     updateTreeWidget();
+
+    ui->swPages->setCurrentIndex(0);
 }
 
 
@@ -72,6 +81,8 @@ void SmartCode::on_aOpenFile_triggered()
 
     currentFile = dir;
     openFile.close();
+
+    ui->swPages->setCurrentIndex(0);
 }
 
 void SmartCode::on_aSaveFile_triggered()

@@ -5,7 +5,8 @@ SmartCode::SmartCode(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::SmartCode)
 {
     ui->setupUi(this);
-    codeEditor = new CodeEditor();
+    setupCodeEditor();
+
     ui->textBoxLayout->addWidget(codeEditor);
 
     currentPath = "";
@@ -13,10 +14,13 @@ SmartCode::SmartCode(QWidget *parent) : QMainWindow(parent),
     dirModel = new QDirModel();
     dirModel->removeColumn(0);
 
-    codeEditor->setTabStopWidth ( 33 );
-    codeEditor->setFont( QFont("Consolas", 11) );
-    codeEditor->setStyleSheet("color: rgb(255, 255, 255); border: 0px solid black;");
-    highlighter = new Highlighter( codeEditor->document() );
+    QPushButton * bMake = new QPushButton("Собрать C++");
+    ui->mainToolBar->addWidget(bMake);
+    connect(bMake, SIGNAL(clicked(bool)), this, SLOT(on_aMakeCPP_triggered()));
+
+
+    //ui->mainToolBar->setStyleSheet("background-color: rgb(79, 79, 79); color: rgb(255, 255, 255);");
+
 
     //updateTreeWidget();
 }
@@ -26,17 +30,16 @@ SmartCode::~SmartCode()
     delete ui;
 }
 
-void SmartCode::paintEvent ( QPaintEvent * event )
+void SmartCode::setupCodeEditor()
 {
-    /*QPainter painter;
-    painter.begin( codeEditor->viewport() );
-    painter.drawLine(0,0,300, 50);
-
-    QRect r = codeEditor->cursorRect();
-    r.setX( 0 );
-    r.setWidth( codeEditor->viewport()->width() );
-    painter.fillRect( r, QBrush( Qt::blue ) );*/
+    codeEditor = new CodeEditor();
+    codeEditor->setObjectName("pteCodeEditor");
+    codeEditor->setTabStopWidth ( 33 );
+    codeEditor->setFont( QFont("Consolas", 11) );
+    codeEditor->setStyleSheet("color: rgb(255, 255, 255); border: 0px solid black;");
+    highlighter = new Highlighter( codeEditor->document() );
 }
+
 
 void SmartCode::on_aFontSettings_triggered()
 {
@@ -179,4 +182,14 @@ void SmartCode::on_tvProjectStruct_itemDoubleClicked(QTreeWidgetItem *item, int 
 
     currentFile = currentPath + "/" + item->text(column);
     openFile.close();
+}
+
+void SmartCode::on_bCreateProject_clicked()
+{
+    on_aCreateProject_triggered();
+}
+
+void SmartCode::on_bOpenProject_clicked()
+{
+    on_aOpenProject_triggered();
 }

@@ -26,7 +26,25 @@
    <string>SmartCode</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMenuBar
+   <string notr="true">QWidget#centralWidget, QWidget#workPage, QWidget#welcomePage
+{
+	background-color: rgb(79, 79, 79);
+	selection-background-color: rgb(54, 122, 255);
+	color: rgb(255, 255, 255);
+}
+QPlainTextEdit#pteCodeEditor
+{
+	background-color: rgb(79, 79, 79);
+	color: rgb(255, 255, 255);
+	border: 0xp solid black;
+}
+QToolBar
+{
+        border: 1px transparent #393838;
+    background-color: rgb(79, 79, 79);
+    font-weight: bold;
+}
+QMenuBar
 {
     background-color: rgb(79, 79, 79);
     color: rgb(255, 255, 255);
@@ -50,80 +68,196 @@ QMenuBar::item:pressed
     color: black;
     margin-bottom:-1px;
     padding-bottom:1px;
+}
+QLabel
+{
+	color: rgb(255, 255, 255);
+}
+QPushButton
+{
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+	border: 1px solid black;
+	padding: 4px;
+}
+QPushButton:hover
+{
+	background-color: rgb(54, 122, 255);
+	color: rgb(255, 255, 255);
 }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(79, 79, 79);
-selection-background-color: rgb(54, 122, 255);
-color: rgb(255, 255, 255);</string>
+    <string notr="true"/>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,3">
+   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
+    <property name="topMargin">
+     <number>50</number>
+    </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="rightMargin">
-       <number>0</number>
+     <widget class="QStackedWidget" name="swPages">
+      <property name="currentIndex">
+       <number>1</number>
       </property>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,2">
+      <widget class="QWidget" name="workPage">
+       <layout class="QHBoxLayout" name="workPageLayout">
         <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>20</number>
+         <number>9</number>
         </property>
         <item>
-         <widget class="QTreeWidget" name="tvProjectStruct">
+         <widget class="QWidget" name="wProjectStruct" native="true">
           <property name="minimumSize">
            <size>
             <width>200</width>
-            <height>300</height>
+            <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>200</width>
-            <height>300</height>
+            <height>16777215</height>
            </size>
           </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(79, 79, 79);
+          <layout class="QVBoxLayout" name="verticalLayout" stretch="0,2">
+           <property name="rightMargin">
+            <number>1</number>
+           </property>
+           <property name="bottomMargin">
+            <number>20</number>
+           </property>
+           <item>
+            <widget class="QTreeWidget" name="tvProjectStruct">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>300</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>300</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(79, 79, 79);
 color: rgb(255, 255, 255);
 border: 0px solid black;</string>
-          </property>
-          <attribute name="headerVisible">
-           <bool>false</bool>
-          </attribute>
-          <column>
-           <property name="text">
-            <string/>
-           </property>
-          </column>
+             </property>
+             <attribute name="headerVisible">
+              <bool>false</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string/>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
+         <layout class="QHBoxLayout" name="textBoxLayout">
+          <property name="spacing">
+           <number>0</number>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
+         </layout>
         </item>
        </layout>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="textBoxLayout">
-      <property name="spacing">
-       <number>0</number>
-      </property>
-     </layout>
+       <zorder>wProjectStruct</zorder>
+       <zorder></zorder>
+      </widget>
+      <widget class="QWidget" name="welcomePage">
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,2,2">
+        <property name="topMargin">
+         <number>20</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="welcomeCol_1">
+          <item>
+           <widget class="QLabel" name="lSmartCodeIDE">
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Добро пожаловать в
+SmartCode IDE</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="bOpenProject">
+            <property name="text">
+             <string>Открыть проект</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="bCreateProject">
+            <property name="text">
+             <string>Создать проект</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="weclomeCol_2">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="welcomeCol_3">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>

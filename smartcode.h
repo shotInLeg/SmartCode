@@ -8,6 +8,7 @@
 #include <QDirModel>
 #include <QTreeWidgetItem>
 #include <QPainter>
+#include <QPushButton>
 
 #include <CodeEditor/codeeditor.h>
 #include <CreateProjectForm/createproject.h>
@@ -26,15 +27,17 @@ public:
     explicit SmartCode(QWidget *parent = 0);
     ~SmartCode();
 
+private:
+    void setupCodeEditor();
+
 private slots:
-    void paintEvent( QPaintEvent * event );
-
-    //Текстовое поле
-
-
     //Меню "Файл"
     void on_aOpenFile_triggered();
     void on_aSaveFile_triggered();
+    void on_aOpenProject_triggered();
+    void on_aCreateProject_triggered();
+    void on_aCreateFile_triggered();
+    void on_aSave_triggered();
 
     //Меню "Вид"
     void on_aFontSettings_triggered();
@@ -42,25 +45,23 @@ private slots:
     //Меню "Запуск"
     void on_aMakeCPP_triggered();
 
-    void on_aOpenProject_triggered();
 
-    void on_aCreateProject_triggered();
+
+    void on_tvProjectStruct_doubleClicked(const QModelIndex &index);
+    void on_tvProjectStruct_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
+
+
     void projectCreated(QString projectPath, QWidget *w);
     void createCancel(QWidget* w);
 
-    void on_tvProjectStruct_doubleClicked(const QModelIndex &index);
-
-    void on_aCreateFile_triggered();
-
-
-
-    void on_aSave_triggered();
 
     void updateTreeWidget();
-
     void printDir(const QDir& dir, QTreeWidgetItem *item);
 
-    void on_tvProjectStruct_itemDoubleClicked(QTreeWidgetItem *item, int column);
+    void on_bCreateProject_clicked();
+
+    void on_bOpenProject_clicked();
 
 private:
     Ui::SmartCode *ui;

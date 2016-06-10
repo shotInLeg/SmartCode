@@ -12,7 +12,7 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     keywordFormats["keyword"].setForeground(QBrush(QColor(234,42,228)));
     //keywordFormats["keyword"].setFontWeight(QFont::Bold);
 
-    keywordFormats["types"].setForeground(QBrush(QColor(42,128,234)));
+    keywordFormats["types"].setForeground(QBrush(QColor(95,165,255)));
     //keywordFormats["types"].setFontWeight(QFont::Bold);
 
     keywordFormats["singleLineComment"].setForeground(Qt::gray);
@@ -25,7 +25,7 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 
 
     QStringList keywordPatterns;
-    keywordPatterns << "\\bclass\\b" << "\\bstruct\\b" << "\\benum\\b"
+    keywordPatterns << "\\bclass\\b" << "\\bunion\\b" <<  "\\bstruct\\b" << "\\benum\\b"
                     << "\\bif\\b" << "\\belse\\b" << "\\bifno\\b" << "\\bifunk\\b"
                     << "\\bfor\\b" << "\\bwhile\\b" << "\\bdo\\b" << "\\bifunk\\b"
                     << "\\bbreak\\b" << "\\bcontinue\\b"
@@ -35,7 +35,7 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 
     QStringList typesPatterns;
     typesPatterns << "\\bnum\\b" << "\\bchar\\b" << "\\bbool\\b" << "\\bvoid\\b"
-                  <<"\\bstr\\b" << "\\buni\\b";
+                  <<"\\bstr\\b" << "\\buni\\b" << "\\bbyte\\b" << "\\bbit\\b";
 
 
     HighlightingRule rule;
