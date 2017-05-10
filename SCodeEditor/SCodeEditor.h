@@ -1,5 +1,5 @@
-#ifndef CODEEDITOR_H
-#define CODEEDITOR_H
+#ifndef SCODEEDITOR_H
+#define SCODEEDITOR_H
 
 #include <QPainter>
 #include <QTextBlock>
@@ -14,12 +14,12 @@ class QWidget;
 class LineNumberArea;
 
 
-class CodeEditor : public QPlainTextEdit
+class SCodeEditor : public QPlainTextEdit
 {
     Q_OBJECT
 
 public:
-    CodeEditor(QWidget *parent = 0);
+    SCodeEditor(QWidget *parent = 0);
 
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
@@ -40,7 +40,7 @@ private:
 class LineNumberArea : public QWidget
 {
 public:
-    LineNumberArea(CodeEditor *editor) : QWidget(editor) {
+    LineNumberArea(SCodeEditor *editor) : QWidget(editor) {
         codeEditor = editor;
     }
 
@@ -54,7 +54,7 @@ protected:
     }
 
 private:
-    CodeEditor *codeEditor;
+    SCodeEditor *codeEditor;
 };
 
 #endif // CODEEDITOR_H

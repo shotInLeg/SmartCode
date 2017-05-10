@@ -1,7 +1,7 @@
-#include "codeeditor.h"
+#include "SCodeEditor.h"
 
 
-CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
+SCodeEditor::SCodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
 
@@ -15,7 +15,7 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 
 
 
-int CodeEditor::lineNumberAreaWidth()
+int SCodeEditor::lineNumberAreaWidth()
 {
     int digits = 1;
     int max = qMax(1, blockCount());
@@ -31,14 +31,14 @@ int CodeEditor::lineNumberAreaWidth()
 
 
 
-void CodeEditor::updateLineNumberAreaWidth(int /* newBlockCount */)
+void SCodeEditor::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
 
 
 
-void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)
+void SCodeEditor::updateLineNumberArea(const QRect &rect, int dy)
 {
     if (dy)
         lineNumberArea->scroll(0, dy);
@@ -51,7 +51,7 @@ void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)
 
 
 
-void CodeEditor::resizeEvent(QResizeEvent *e)
+void SCodeEditor::resizeEvent(QResizeEvent *e)
 {
     QPlainTextEdit::resizeEvent(e);
 
@@ -61,7 +61,7 @@ void CodeEditor::resizeEvent(QResizeEvent *e)
 
 
 
-void CodeEditor::highlightCurrentLine()
+void SCodeEditor::highlightCurrentLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
@@ -83,7 +83,7 @@ void CodeEditor::highlightCurrentLine()
 
 
 
-void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
+void SCodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumberArea);
     painter.fillRect(event->rect(), Qt::lightGray);

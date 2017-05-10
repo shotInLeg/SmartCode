@@ -1,10 +1,10 @@
-#include "smartcode.h"
+#include "SSmartCode.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    SmartCode w;
+    SSmartCode w;
     w.show();
 
     return a.exec();

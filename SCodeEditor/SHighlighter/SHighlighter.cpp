@@ -1,6 +1,6 @@
-#include "highlighter.h"
+#include "SHighlighter.h"
 
-Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
+SHighlighter::SHighlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 {
 
 
@@ -131,7 +131,7 @@ Highlighter::Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     commentEndExpression = QRegExp("\\*/");
 }
 
-void Highlighter::highlightBlock(const QString &text)
+void SHighlighter::highlightBlock(const QString &text)
 {
     foreach (const HighlightingRule &rule, highlightingRules)
     {

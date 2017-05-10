@@ -1,15 +1,15 @@
-#ifndef HIGHLIGHTER_H
-#define HIGHLIGHTER_H
+#ifndef SHIGHLIGHTER_H
+#define SHIGHLIGHTER_H
 
 #include <QDebug>
 #include <QSyntaxHighlighter>
 
-class Highlighter : public QSyntaxHighlighter
+class SHighlighter : public QSyntaxHighlighter
  {
      Q_OBJECT
 
  public:
-     Highlighter(QTextDocument *parent = 0);
+     SHighlighter(QTextDocument *parent = 0);
 
  protected:
      void highlightBlock(const QString &text);
@@ -45,4 +45,4 @@ class Highlighter : public QSyntaxHighlighter
      QTextCharFormat quotationFormat;
      QTextCharFormat functionFormat;
  };
-#endif // HIGHLIGHTER_H
+#endif // SHIGHLIGHTER_H
