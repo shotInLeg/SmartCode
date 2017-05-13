@@ -15,7 +15,7 @@
 #include "SCodeEditor/SHighlighter/SHighlighter.h"
 
 #include "SCreateProjectForm/SCreateProjectForm.h"
-#include "SCreateNewEntry/SCreateNewEntry.h"
+#include "SCreateNewEntryForm/SCreateNewEntryForm.h"
 
 namespace Ui {
 class SSmartCode;
@@ -31,24 +31,36 @@ public:
 
 
 private slots:
+    //Menu MenuActions.cpp
     void on_aCreateProject_triggered();
-
-    void projectCreated(QString path);
-    void entryCreated(QString type, QString name);
-
-    void on_bAddFile_clicked();
-
-    void on_tvProjectFiles_itemDoubleClicked(QTreeWidgetItem *item, int column);
-
     void on_aOpenProject_triggered();
 
-private:
+    //LeftBar LeftBarSlots.cpp
+    void on_bAddFile_clicked();
+    void on_tvProjectFiles_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
+private slots: //PrivateSlots.cpp
+    void projectCreated(QString path);
+    void entryCreated(QString type, QString name);
+    void codeEditorPosChanged();
+
+    void on_aFindReplace_triggered();
+    void on_aPanelFindReplace_triggered();
+    void on_aTerminal_triggered();
+    void on_aProjectTree_triggered();
+
+private: //PrivateFunc.cpp
     void setupCodeEditor();
     void setupTreeView();
+    void setupRightBar();
+    void setupBottomBar();
+    void setupLeftBar();
 
     void updateTreeView();
 
+    //Recoursive method to print Tree start in dir
     void printDir(const QDir &dir, QTreeWidgetItem * item );
+    //Method to get full path from root project to item
     QString dreelUp( QTreeWidgetItem * item );
 private:
 
@@ -58,9 +70,7 @@ private:
 //Widgets
     SCodeEditor * codeEditor;
     SHighlighter * highlighter;
-
-//Models
-    QDirModel * dirModel;
+    QLabel * codeEditorPos;
 
 //Current State
     QString currentPath;

@@ -4,7 +4,10 @@
 SCodeEditor::SCodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
-    //lineNumberArea->setMinimumWidth(25);
+    lineNumberArea->setMinimumWidth(25);
+    lineNumberArea->setStyleSheet("background: rgb(80,80,80);");
+
+    //setViewportMargins(lineNumberAreaWidth()+25, 0, 0, 0);
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
@@ -27,14 +30,14 @@ int SCodeEditor::lineNumberAreaWidth()
 
     int space = 3 + fontMetrics().width(QLatin1Char('9')) * digits;
 
-    return space;
+    return space+10;
 }
 
 
 
 void SCodeEditor::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
-    setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
+    setViewportMargins(lineNumberAreaWidth()+5, 0, 0, 0);
 }
 
 
@@ -87,7 +90,7 @@ void SCodeEditor::highlightCurrentLine()
 void SCodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumberArea);
-    painter.fillRect(event->rect(), Qt::lightGray);
+    painter.fillRect(event->rect(), QBrush(QColor(80,80,80)));
 
 
     QTextBlock block = firstVisibleBlock();
@@ -100,9 +103,9 @@ void SCodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
         if (block.isVisible() && bottom >= event->rect().top())
         {
             QString number = QString::number(blockNumber + 1);
-            painter.setPen(Qt::black);
-            painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
-                             Qt::AlignRight, number);
+            painter.setPen(Qt::white);
+            painter.drawText(10, top, lineNumberArea->width(), fontMetrics().height(),
+                             Qt::AlignVCenter, number);
         }
 
         block = block.next();

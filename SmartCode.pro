@@ -27,18 +27,21 @@ SOURCES += main.cpp\
         SSmartCode.cpp \
     SCodeEditor/SHighlighter/SHighlighter.cpp \
     SCodeEditor/SCodeEditor.cpp \
-    MenuFunc.cpp \
     SCreateProjectForm/SCreateProjectForm.cpp \
-    SCreateNewEntry/SCreateNewEntry.cpp
+    PrivateSlots.cpp \
+    PrivateFunc.cpp \
+    MenuActions.cpp \
+    LeftBarSlots.cpp \
+    SCreateNewEntryForm/SCreateNewEntryForm.cpp
 HEADERS  += SSmartCode.h \
     SCodeEditor/SHighlighter/SHighlighter.h \
     SCodeEditor/SCodeEditor.h \
     SCreateProjectForm/SCreateProjectForm.h \
-    SCreateNewEntry/SCreateNewEntry.h
+    SCreateNewEntryForm/SCreateNewEntryForm.h
 
 FORMS    += SSmartCode.ui \
     SCreateProjectForm/SCreateProjectForm.ui \
-    SCreateNewEntry/SCreateNewEntry.ui
+    SCreateNewEntryForm/SCreateNewEntryForm.ui
 
 RESOURCES += \
     Resourses/resourses.qrc
