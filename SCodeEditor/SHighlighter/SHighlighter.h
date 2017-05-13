@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QSyntaxHighlighter>
+#include <QFile>
 
 class SHighlighter : public QSyntaxHighlighter
  {
@@ -10,6 +11,7 @@ class SHighlighter : public QSyntaxHighlighter
 
  public:
      SHighlighter(QTextDocument *parent = 0);
+     void updateHighlightRules(const QString &highlight_page);
 
  protected:
      void highlightBlock(const QString &text);

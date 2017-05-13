@@ -39,3 +39,6 @@ HEADERS  += SSmartCode.h \
 FORMS    += SSmartCode.ui \
     SCreateProjectForm/SCreateProjectForm.ui \
     SCreateNewEntry/SCreateNewEntry.ui
+
+RESOURCES += \
+    Resourses/resourses.qrc

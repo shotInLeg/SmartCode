@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>860</width>
+    <width>789</width>
     <height>476</height>
    </rect>
   </property>
@@ -60,7 +60,7 @@
              <number>0</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>5</number>
             </property>
             <property name="rightMargin">
              <number>0</number>
@@ -144,13 +144,7 @@
                  </layout>
                 </item>
                 <item>
-                 <widget class="QTreeWidget" name="tvProjectFiles">
-                  <column>
-                   <property name="text">
-                    <string notr="true">1</string>
-                   </property>
-                  </column>
-                 </widget>
+                 <widget class="QTreeWidget" name="tvProjectFiles"/>
                 </item>
                </layout>
               </widget>
@@ -255,7 +249,7 @@
             <item>
              <widget class="QStackedWidget" name="swBottom">
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="pOutputView">
                <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -493,8 +487,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>860</width>
-     <height>22</height>
+     <width>789</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

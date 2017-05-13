@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/highlighter">
+        <file>SHighlighter/lisp.hp</file>
+        <file>SHighlighter/py.hp</file>
+    </qresource>
+</RCC>

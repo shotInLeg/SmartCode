@@ -25,15 +25,15 @@ void SSmartCode::setupCodeEditor()
     codeEditor->setTabStopWidth ( 33 );
     codeEditor->setFont( QFont("Consolas", 11) );
     codeEditor->setStyleSheet("background: rgb(80,80,80); color: rgb(255, 255, 255); border: 0px solid black;");
-    highlighter = new SHighlighter( codeEditor->document() );
+    highlighter = new SHighlighter( codeEditor->document());
+    highlighter->updateHighlightRules(":/highlighter/SHighlighter/lisp.hp");
 
     ui->codeEditorLayout->addWidget(codeEditor);
 }
 
 void SSmartCode::setupTreeView()
 {
-    dirModel = new QDirModel();
-    dirModel->removeColumn(0);
+    ui->tvProjectFiles->clear();
 }
 
 void SSmartCode::updateTreeView()
@@ -107,9 +107,8 @@ void SSmartCode::on_tvProjectFiles_itemDoubleClicked(QTreeWidgetItem *item, int 
 {
     Q_UNUSED(column);
 
-    qDebug() << currentPath + "/" + dreelUp(item);
-
-    QFile openFile( currentPath + "/" + dreelUp(item) );
+    QString projectFile = dreelUp(item);
+    QFile openFile( currentPath + "/" + projectFile );
     if(!openFile.open(QIODevice::ReadOnly))
     {
         QMessageBox::information(this, "Ошибка", "Не удалось открыть файл для четния, "
@@ -118,6 +117,19 @@ void SSmartCode::on_tvProjectFiles_itemDoubleClicked(QTreeWidgetItem *item, int 
 
     QByteArray bytesFromFile = openFile.readAll();
 
+    QStringList partOfNameFile = projectFile.split(".");
+    if(partOfNameFile.size() > 0)
+    {
+        QString type = partOfNameFile[partOfNameFile.size()-1];
+        try
+        {
+            highlighter->updateHighlightRules(":/highlighter/SHighlighter/"+type+".hp");
+        }
+        catch(std::invalid_argument& ex)
+        {
+            qDebug() << "Не удалось подсветить синтаксис" << ex.what();
+        }
+    }
     codeEditor->setPlainText( QString::fromStdString(bytesFromFile.toStdString()) );
 
     currentFile = currentPath + "/" + dreelUp(item);

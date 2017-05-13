@@ -2,18 +2,14 @@
 
 SHighlighter::SHighlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 {
-
-
     keywordFormats["operator"].setForeground(QBrush(QColor(234,42,228)));
     keywordFormats["operator"].setFontItalic(true);
 
     keywordFormats["operation"].setForeground(QBrush(QColor(234,42,228)));
 
     keywordFormats["keyword"].setForeground(QBrush(QColor(234,42,228)));
-    //keywordFormats["keyword"].setFontWeight(QFont::Bold);
 
     keywordFormats["types"].setForeground(QBrush(QColor(95,165,255)));
-    //keywordFormats["types"].setFontWeight(QFont::Bold);
 
     keywordFormats["singleLineComment"].setForeground(Qt::gray);
     keywordFormats["multiLineComment"].setForeground(Qt::gray);
@@ -22,58 +18,57 @@ SHighlighter::SHighlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     keywordFormats["quotation"].setForeground(QBrush(QColor(255,134,11)));
 
     keywordFormats["function"].setFontWeight(QFont::Bold);
+}
 
+void SHighlighter::updateHighlightRules(const QString &highlight_page)
+{
+    QFile hpage(highlight_page);
+    if (!hpage.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug() << "Cannot open file";
+        throw std::invalid_argument("Cannot open file");
+    }
 
     QStringList keywordPatterns;
-    keywordPatterns << "\\bclass\\b" << "\\bunion\\b" <<  "\\bstruct\\b" << "\\benum\\b"
-                    << "\\bif\\b" << "\\belse\\b" << "\\bifno\\b" << "\\bifunk\\b"
-                    << "\\bfor\\b" << "\\bwhile\\b" << "\\bdo\\b" << "\\bifunk\\b"
-                    << "\\bbreak\\b" << "\\bcontinue\\b"
-                    << "\\bprivate\\b" << "\\bprotected\\b" << "\\bpublic\\b"
-                    << "\\btypedef\\b" << "\\blabel\\b" << "\\busing\\b"
-                    <<  "\\bconst\\b"  << "\\breturn\\b";
-
     QStringList typesPatterns;
-    typesPatterns << "\\bnum\\b" << "\\bchar\\b" << "\\bbool\\b" << "\\bvoid\\b"
-                  <<"\\bstr\\b" << "\\buni\\b" << "\\bbyte\\b" << "\\bbit\\b";
+    QVector<QRegExp> operators;
+    QVector<QRegExp> operations;
+    while(!hpage.atEnd())
+    {
+        QString line = hpage.readLine();
+        QStringList list = line.split(" ");
 
+        if(list.size() != 2)
+            continue;
+
+        QString syntaxType = list[0];
+        QString key = list[1].replace("\n", "");
+
+        qDebug() << key << syntaxType;
+
+        if(syntaxType == "keyword")
+            keywordPatterns << "\\b"+key+"\\b";
+        else if(syntaxType == "type")
+            typesPatterns << "\\b"+key+"\\b";
+        else if(syntaxType == "operator")
+            operators.push_back(QRegExp(key));
+        else if(syntaxType == "operation")
+            operations.push_back(QRegExp(key));
+
+    }
 
     HighlightingRule rule;
+    highlightingRules.clear();
 
-    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x0028") ) ); // (
-    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x0029") ) ); // (
-    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x007B") ) ); // {
-    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x007D") ) ); // }
-    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x005B") ) ); // [
-    highlightingRules.append( HighlightingRule( keywordFormats["operator"], QRegExp("\\x005D") ) ); // ]
+    for(int i = 0; i < operators.size(); i++)
+    {
+        highlightingRules.append( HighlightingRule( keywordFormats["operator"], operators.at(i)));
+    }
 
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003B") ) ); // ;
-
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002B+\\x002B+") ) ); // ++
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002D+\\x002D") ) ); // --
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002B") ) ); // +
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002D") ) ); // -
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002A") ) ); // *
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x002F") ) ); // /
-
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x005C") ) ); // \\
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0025") ) ); // %
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x005E") ) ); // ^
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003C+\\x003D") ) ); // <=
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003E+\\x003D") ) ); // =>
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0021+\\x003D") ) ); // !=
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003D+\\x003D") ) ); // ==
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003E") ) ); // >
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003C") ) ); // <
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0021") ) ); // !
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003D") ) ); // =
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003F") ) ); // ?
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x003A") ) ); // :
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0026+\\x0026") ) ); // &&
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x007C+\\x007C") ) ); // ||
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x007E") ) ); // ~
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x0026") ) ); // &
-    highlightingRules.append( HighlightingRule( keywordFormats["operation"], QRegExp("\\x007C") ) ); // |
+    for(int i = 0; i < operations.size(); i++)
+    {
+        highlightingRules.append( HighlightingRule( keywordFormats["operation"], operations.at(i)));
+    }
 
     foreach (const QString &pattern, keywordPatterns)
     {
