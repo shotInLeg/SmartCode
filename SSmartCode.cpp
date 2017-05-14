@@ -24,5 +24,32 @@ SSmartCode::~SSmartCode()
     delete ui;
 }
 
+void SSmartCode::closeEvent(QCloseEvent *event)
+{
+    cashCurrentDocument();
+
+    if(cashedFiles.size() > 0)
+    {
+        event->ignore();
+        QVector<QString> unsaved;
+        for(auto it = cashedFiles.begin();
+            it != cashedFiles.end();
+            it++)
+        {
+            unsaved.push_back(it.key());
+        }
+
+        SSaveChangesForm * saveForm = new SSaveChangesForm(unsaved);
+
+        connect(saveForm, SIGNAL(save()), this, SLOT(saveAndClose()));
+        connect(saveForm, SIGNAL(notSave()), this, SLOT(notSaveAndClose()));
+
+        saveForm->show();
+    }
+    else
+    {
+        event->accept();
+    }
+}
 
 

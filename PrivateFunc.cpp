@@ -17,6 +17,10 @@ void SSmartCode::setupCodeEditor()
             SIGNAL(cursorPositionChanged()),
             this,
             SLOT(codeEditorPosChanged()));
+    connect(codeEditor,
+            SIGNAL(textChanged()),
+            this,
+            SLOT(currentFileChanged()));
 
     ui->codeEditorLayout->addWidget(codeEditor);
 }
@@ -54,6 +58,54 @@ void SSmartCode::updateTreeView()
     ui->tvProjectFiles->addTopLevelItem(rootItem);
     printDir(dir, rootItem);
 }
+
+void SSmartCode::cashCurrentDocument()
+{
+    if(currentFile == "")
+        return;
+
+    if(unsavesFiles.contains(currentFile))
+    {
+        cashedFiles[currentFile] =
+                QByteArray().append(codeEditor->toPlainText());
+        qDebug() << "File " << currentFile << " cashed";
+    }
+}
+
+void SSmartCode::setHighlightPage(const QString &filename)
+{
+    QStringList partsOfNameFile = filename.split(".");
+    if(partsOfNameFile.size() > 0)
+    {
+        QString type = partsOfNameFile[partsOfNameFile.size()-1];
+        try
+        {
+            highlighter->updateHighlightRules(":/highlighter/SHighlighter/"
+                                              ""+type+".hp");
+        }
+        catch(std::invalid_argument& ex)
+        {
+            qDebug() << "Не удалось подсветить синтаксис" << ex.what();
+        }
+    }
+}
+
+void SSmartCode::loadFileToCodeEditor(const QString &filename)
+{
+    QFile openFile(filename);
+    if(!openFile.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::information(this, "Ошибка", "Не удалось открыть файл "
+                                                 "для четния, проверьте "
+                                                 "права доступа");
+    }
+    QByteArray bytesFromFile = openFile.readAll();
+    openFile.close();
+
+    codeEditor->setPlainText(QString(bytesFromFile));
+}
+
+
 
 void SSmartCode::printDir(const QDir &dir, QTreeWidgetItem *item)
 {
@@ -96,7 +148,6 @@ QString SSmartCode::dreelUp(QTreeWidgetItem *item)
         parent = parent->parent();
         i++;
     }
-
 
     return path;
 }

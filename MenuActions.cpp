@@ -16,12 +16,36 @@ void SSmartCode::on_aCreateProject_triggered()
 
 void SSmartCode::on_aOpenProject_triggered()
 {
+
     currentPath = QFileDialog::getExistingDirectory(this,
                                                     "Открыть проект",
                                                     "~");
+
+    if(currentPath == "")
+        return;
+
     updateTreeView();
     ui->wLeftSide->show();
     ui->aProjectTree->setChecked(true);
+}
+
+void SSmartCode::on_aSaveProject_triggered()
+{
+    cashCurrentDocument();
+
+    for(auto file = unsavesFiles.begin(); file != unsavesFiles.end(); file++)
+    {
+
+        QFile saveFile(*file);
+        if(saveFile.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            saveFile.write(cashedFiles[*file]);
+        }
+        saveFile.close();
+    }
+
+    unsavesFiles.clear();
+    cashedFiles.clear();
 }
 
 //Edit

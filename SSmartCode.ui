@@ -538,6 +538,7 @@
     </property>
     <addaction name="aCreateProject"/>
     <addaction name="aOpenProject"/>
+    <addaction name="aSaveProject"/>
     <addaction name="action_6"/>
     <addaction name="separator"/>
     <addaction name="action_2"/>
@@ -577,11 +578,6 @@
   <action name="aSaveFile">
    <property name="text">
     <string>Сохранить файл</string>
-   </property>
-  </action>
-  <action name="aSaveProject">
-   <property name="text">
-    <string>Сохранить проект</string>
    </property>
   </action>
   <action name="action_2">
@@ -638,6 +634,11 @@
    </property>
    <property name="text">
     <string>Проекты</string>
+   </property>
+  </action>
+  <action name="aSaveProject">
+   <property name="text">
+    <string>Сохранить проект</string>
    </property>
   </action>
  </widget>

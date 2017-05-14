@@ -44,8 +44,6 @@ void SHighlighter::updateHighlightRules(const QString &highlight_page)
         QString syntaxType = list[0];
         QString key = list[1].replace("\n", "");
 
-        qDebug() << key << syntaxType;
-
         if(syntaxType == "keyword")
             keywordPatterns << "\\b"+key+"\\b";
         else if(syntaxType == "type")

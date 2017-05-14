@@ -32,16 +32,19 @@ SOURCES += main.cpp\
     PrivateFunc.cpp \
     MenuActions.cpp \
     LeftBarSlots.cpp \
-    SCreateNewEntryForm/SCreateNewEntryForm.cpp
+    SCreateNewEntryForm/SCreateNewEntryForm.cpp \
+    SSaveChangesForm/SSaveChangesForm.cpp
 HEADERS  += SSmartCode.h \
     SCodeEditor/SHighlighter/SHighlighter.h \
     SCodeEditor/SCodeEditor.h \
     SCreateProjectForm/SCreateProjectForm.h \
-    SCreateNewEntryForm/SCreateNewEntryForm.h
+    SCreateNewEntryForm/SCreateNewEntryForm.h \
+    SSaveChangesForm/SSaveChangesForm.h
 
 FORMS    += SSmartCode.ui \
     SCreateProjectForm/SCreateProjectForm.ui \
-    SCreateNewEntryForm/SCreateNewEntryForm.ui
+    SCreateNewEntryForm/SCreateNewEntryForm.ui \
+    SSaveChangesForm/SSaveChangesForm.ui
 
 RESOURCES += \
     Resourses/resourses.qrc

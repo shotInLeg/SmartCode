@@ -16,6 +16,7 @@
 
 #include "SCreateProjectForm/SCreateProjectForm.h"
 #include "SCreateNewEntryForm/SCreateNewEntryForm.h"
+#include "SSaveChangesForm/SSaveChangesForm.h"
 
 namespace Ui {
 class SSmartCode;
@@ -34,20 +35,26 @@ private slots:
     //Menu MenuActions.cpp
     void on_aCreateProject_triggered();
     void on_aOpenProject_triggered();
+    void on_aSaveProject_triggered();
+    void on_aFindReplace_triggered();
+    void on_aPanelFindReplace_triggered();
+    void on_aTerminal_triggered();
+    void on_aProjectTree_triggered();
 
     //LeftBar LeftBarSlots.cpp
     void on_bAddFile_clicked();
     void on_tvProjectFiles_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
+    //Window
+    void closeEvent(QCloseEvent* event);
+
 private slots: //PrivateSlots.cpp
     void projectCreated(QString path);
     void entryCreated(QString type, QString name);
     void codeEditorPosChanged();
-
-    void on_aFindReplace_triggered();
-    void on_aPanelFindReplace_triggered();
-    void on_aTerminal_triggered();
-    void on_aProjectTree_triggered();
+    void currentFileChanged();
+    void saveAndClose();
+    void notSaveAndClose();
 
 private: //PrivateFunc.cpp
     void setupCodeEditor();
@@ -57,6 +64,12 @@ private: //PrivateFunc.cpp
     void setupLeftBar();
 
     void updateTreeView();
+
+    void cashCurrentDocument();
+    void setHighlightPage(const QString& filename);
+    void loadFileToCodeEditor(const QString& filename);
+
+
 
     //Recoursive method to print Tree start in dir
     void printDir(const QDir &dir, QTreeWidgetItem * item );
@@ -75,7 +88,8 @@ private:
 //Current State
     QString currentPath;
     QString currentFile;
-    QVector<QString> openedFiles;
+    QMap<QString, QByteArray> cashedFiles;
+    QVector<QString> unsavesFiles;
 };
 
 #endif // SSMARTCODE_H
