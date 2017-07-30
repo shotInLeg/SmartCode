@@ -2,6 +2,10 @@
 #define SMARTCODE_H
 
 #include <QMainWindow>
+#include <QToolBar>
+#include <QTreeWidget>
+#include <QToolButton>
+#include <QLabel>
 
 namespace Ui {
 class SmartCode;

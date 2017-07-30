@@ -39,42 +39,20 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <widget class="QTreeWidget" name="projectTree">
-        <property name="minimumSize">
-         <size>
-          <width>250</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>400</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
-         </property>
-        </column>
-       </widget>
        <widget class="QWidget" name="verticalLayoutWidget">
-        <layout class="QVBoxLayout" name="ltCodeEditor">
+        <layout class="QVBoxLayout" name="lLeftBar">
          <property name="spacing">
           <number>0</number>
          </property>
          <property name="bottomMargin">
           <number>0</number>
          </property>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_2">
+        <layout class="QVBoxLayout" name="lCode">
          <item>
-          <layout class="QHBoxLayout" name="ltCodeInfo">
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QComboBox" name="cbCurrentInstructionInfo"/>
-           </item>
-          </layout>
+          <widget class="QComboBox" name="cbCurrentInstructionInfo"/>
          </item>
          <item>
           <widget class="QTabWidget" name="twOpenedFiles">
@@ -198,9 +176,6 @@
     <bool>false</bool>
    </attribute>
    <addaction name="aNewFile"/>
-   <addaction name="aAddFile"/>
-   <addaction name="aDeleteFile"/>
-   <addaction name="separator"/>
    <addaction name="aSaveCurrentFile"/>
    <addaction name="aSaveAllProjectFiles"/>
    <addaction name="separator"/>

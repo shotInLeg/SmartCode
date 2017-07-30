@@ -25,13 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        smartcode.cpp
+        smartcode.cpp \
+    dialogs/s_create_new_entry/s_create_new_entry.cpp \
+    dialogs/s_create_new_project/s_create_new_project.cpp
 
 HEADERS += \
-        smartcode.h
+        smartcode.h \
+    dialogs/s_create_new_entry/s_create_new_entry.h \
+    dialogs/s_create_new_project/s_create_new_project.h
 
 FORMS += \
-        smartcode.ui
+        smartcode.ui \
+    dialogs/s_create_new_entry/s_create_new_entry.ui \
+    dialogs/s_create_new_project/s_create_new_project.ui
 
 RESOURCES += \
     resources.qrc
