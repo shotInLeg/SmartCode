@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>resources/add_file.png</file>
+        <file>resources/copy.png</file>
+        <file>resources/cs.png</file>
+        <file>resources/debug.png</file>
+        <file>resources/delete_file.png</file>
+        <file>resources/error.png</file>
+        <file>resources/eval.png</file>
+        <file>resources/interpreter.png</file>
+        <file>resources/java.png</file>
+        <file>resources/js.png</file>
+        <file>resources/new_file.png</file>
+        <file>resources/new_project.png</file>
+        <file>resources/paste.png</file>
+        <file>resources/py.png</file>
+        <file>resources/python.png</file>
+        <file>resources/ruby.png</file>
+        <file>resources/save_project.png</file>
+        <file>resources/save.png</file>
+        <file>resources/save2.png</file>
+        <file>resources/source_code.png</file>
+        <file>resources/sql.png</file>
+        <file>resources/stack_overflow.png</file>
+        <file>resources/start.png</file>
+        <file>resources/terminal.png</file>
+        <file>resources/warning.png</file>
+        <file>resources/commit.png</file>
+        <file>resources/fork.png</file>
+        <file>resources/git_diff.png</file>
+        <file>resources/merge.png</file>
+        <file>resources/repository.png</file>
+    </qresource>
+</RCC>

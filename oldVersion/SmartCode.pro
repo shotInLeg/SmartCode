@@ -34,6 +34,7 @@ SOURCES += main.cpp\
     LeftBarSlots.cpp \
     SCreateNewEntryForm/SCreateNewEntryForm.cpp \
     SSaveChangesForm/SSaveChangesForm.cpp
+
 HEADERS  += SSmartCode.h \
     SCodeEditor/SHighlighter/SHighlighter.h \
     SCodeEditor/SCodeEditor.h \
