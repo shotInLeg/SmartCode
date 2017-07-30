@@ -27,17 +27,20 @@ SOURCES += \
         main.cpp \
         smartcode.cpp \
     dialogs/s_create_new_entry/s_create_new_entry.cpp \
-    dialogs/s_create_new_project/s_create_new_project.cpp
+    dialogs/s_create_new_project/s_create_new_project.cpp \
+    dialogs/s_check_unsave_changes/s_check_unsave_changes.cpp
 
 HEADERS += \
         smartcode.h \
     dialogs/s_create_new_entry/s_create_new_entry.h \
-    dialogs/s_create_new_project/s_create_new_project.h
+    dialogs/s_create_new_project/s_create_new_project.h \
+    dialogs/s_check_unsave_changes/s_check_unsave_changes.h
 
 FORMS += \
         smartcode.ui \
     dialogs/s_create_new_entry/s_create_new_entry.ui \
-    dialogs/s_create_new_project/s_create_new_project.ui
+    dialogs/s_create_new_project/s_create_new_project.ui \
+    dialogs/s_check_unsave_changes/s_check_unsave_changes.ui
 
 RESOURCES += \
     resources.qrc

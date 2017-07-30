@@ -4,6 +4,7 @@
 
 #include "dialogs/s_create_new_entry/s_create_new_entry.h"
 #include "dialogs/s_create_new_project/s_create_new_project.h"
+#include "dialogs/s_check_unsave_changes/s_check_unsave_changes.h"
 
 SmartCode::SmartCode(QWidget *parent) :
     QMainWindow(parent),
@@ -65,6 +66,22 @@ SmartCode::SmartCode(QWidget *parent) :
 
     SCreateNewProject* cp = new SCreateNewProject(langs, baseInterpreterPath, projectTypes, baseProjectPath, this);
     cp->show();
+
+    QVector<QString> unsaveFiles = {
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Interface/main.aml"
+    };
+
+    SCheckUnsaveChanges* cu = new SCheckUnsaveChanges(unsaveFiles, this);
+    cu->show();
 }
 
 SmartCode::~SmartCode()
