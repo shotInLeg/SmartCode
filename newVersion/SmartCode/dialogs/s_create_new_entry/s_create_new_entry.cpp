@@ -45,6 +45,7 @@ void SCreateNewEntry::on_bAccept_clicked()
     QString entryName = ui->eEntryName->text();
 
     emit createEntry(entryType, entryPath, entryName);
+    this->close();
 }
 
 void SCreateNewEntry::on_bCancel_clicked()

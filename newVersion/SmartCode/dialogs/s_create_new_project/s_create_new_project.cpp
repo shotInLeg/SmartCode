@@ -62,10 +62,25 @@ void SCreateNewProject::on_bCreate_clicked()
 
 
     emit createEntry(lang, interpreterPath, projectType, projectPath, projectName);
+    this->close();
 }
 
 void SCreateNewProject::on_bCancel_clicked()
 {
     emit canceled();
     this->close();
+}
+
+void SCreateNewProject::on_bSelectInterpreterPath_clicked()
+{
+    QString interpreterPath = QFileDialog::getOpenFileName(
+                        this, "Выберите транслятор", baseInterpreterPath);
+    ui->eInterpreterPath->setText(interpreterPath);
+}
+
+void SCreateNewProject::on_bSelectProjectPath_clicked()
+{
+    QString projectPath = QFileDialog::getExistingDirectory(
+                        this, "Выберите папку сохранения проекта", baseProjectPath);
+    ui->eProjectPath->setText(projectPath);
 }

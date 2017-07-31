@@ -56,16 +56,19 @@ void SCheckUnsaveChanges::on_bSave_clicked()
     }
 
     emit saveFiles(filesToSave);
+    this->close();
 }
 
 void SCheckUnsaveChanges::on_bNotSave_clicked()
 {
     emit notSave();
+    this->close();
 }
 
 void SCheckUnsaveChanges::on_bCancel_clicked()
 {
     emit canceled();
+    this->close();
 }
 
 void SCheckUnsaveChanges::on_bViewChanges_clicked()

@@ -13,13 +13,13 @@ SmartCode::SmartCode(QWidget *parent) :
     ui->setupUi(this);
 
     QComboBox* cc = new QComboBox;
-    cc->addItem("sum(a =Int, b =Int) =Int");
-    cc->addItem("applicate(a =List, b =(Int, Int)Int) =List");
-    cc->addItem("sort(a =List, b =(Int, Int)Bool) =List");
+    cc->addItem("sum =Int(a =Int, b =Int)");
+    cc->addItem("applicate =List(lst =List, aplicator =Int(Int, Int))");
+    cc->addItem("sort =List(lst =List, predicat =Bool(Int, Int))");
 
-    ui->cbCurrentInstructionInfo->addItem("sum(a =Int, b =Int) =Int");
-    ui->cbCurrentInstructionInfo->addItem("applicate(a =List, b =(Int, Int)Int) =List");
-    ui->cbCurrentInstructionInfo->addItem("sort(a =List, b =(Int, Int)Bool) =List");
+    ui->cbCurrentInstructionInfo->addItem("sum =Int(a =Int, b =Int)");
+    ui->cbCurrentInstructionInfo->addItem("applicate =List(lst =List, aplicator =Int(Int, Int))");
+    ui->cbCurrentInstructionInfo->addItem("sort =List(lst =List, predicat =Bool(Int, Int))");
 
     ui->toolBar->addWidget(cc);
 

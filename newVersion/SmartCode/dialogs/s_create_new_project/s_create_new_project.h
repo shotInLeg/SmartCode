@@ -2,6 +2,10 @@
 #define S_CREATE_NEW_PROJECT_H
 
 #include <QDialog>
+#include <QString>
+#include <QVector>
+#include <QPair>
+#include <QFileDialog>
 
 namespace Ui {
 class SCreateNewProject;
@@ -24,6 +28,10 @@ private slots:
     void on_bCreate_clicked();
 
     void on_bCancel_clicked();
+
+    void on_bSelectInterpreterPath_clicked();
+
+    void on_bSelectProjectPath_clicked();
 
 signals:
     void createEntry(QString lang,
