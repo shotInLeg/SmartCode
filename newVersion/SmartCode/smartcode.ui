@@ -52,7 +52,7 @@
        <widget class="QWidget" name="verticalLayoutWidget_2">
         <layout class="QVBoxLayout" name="lCode">
          <item>
-          <widget class="QComboBox" name="cbCurrentInstructionInfo"/>
+          <layout class="QVBoxLayout" name="lCodeEditorInfo"/>
          </item>
          <item>
           <widget class="QTabWidget" name="twOpenedFiles">

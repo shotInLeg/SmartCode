@@ -6,6 +6,7 @@
 #include <QTreeWidget>
 #include <QToolButton>
 #include <QLabel>
+#include <QComboBox>
 
 namespace Ui {
 class SmartCode;

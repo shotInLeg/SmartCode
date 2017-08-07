@@ -5,6 +5,7 @@
 #include "dialogs/s_create_new_entry/s_create_new_entry.h"
 #include "dialogs/s_create_new_project/s_create_new_project.h"
 #include "dialogs/s_check_unsave_changes/s_check_unsave_changes.h"
+#include "dialogs/s_confirm_remove/s_confirm_remove.h"
 
 SmartCode::SmartCode(QWidget *parent) :
     QMainWindow(parent),
@@ -12,16 +13,29 @@ SmartCode::SmartCode(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+
     QComboBox* cc = new QComboBox;
     cc->addItem("sum =Int(a =Int, b =Int)");
     cc->addItem("applicate =List(lst =List, aplicator =Int(Int, Int))");
     cc->addItem("sort =List(lst =List, predicat =Bool(Int, Int))");
-
-    ui->cbCurrentInstructionInfo->addItem("sum =Int(a =Int, b =Int)");
-    ui->cbCurrentInstructionInfo->addItem("applicate =List(lst =List, aplicator =Int(Int, Int))");
-    ui->cbCurrentInstructionInfo->addItem("sort =List(lst =List, predicat =Bool(Int, Int))");
-
     ui->toolBar->addWidget(cc);
+
+
+    QComboBox * cei = new QComboBox(this);
+    cei->addItem("sum =Int(a =Int, b =Int)");
+    cei->addItem("applicate =List(lst =List, aplicator =Int(Int, Int))");
+    cei->addItem("sort =List(lst =List, predicat =Bool(Int, Int))");
+
+    QToolBar * tbb = new QToolBar(this);
+    //tbb->setLayout(new QHBoxLayout());
+    tbb->addWidget(cei);
+
+
+    ui->lCodeEditorInfo->addWidget(tbb);
+
+
+
 
 
     QComboBox* treeView = new QComboBox(this);
@@ -82,6 +96,23 @@ SmartCode::SmartCode(QWidget *parent) :
 
     SCheckUnsaveChanges* cu = new SCheckUnsaveChanges(unsaveFiles, this);
     cu->show();
+
+    QVector<QString> removeFiles = {
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Sources/main.aml",
+        "ProjectFolder/Interface/main.aml"
+    };
+
+    SConfirmRemove* cr = new SConfirmRemove(removeFiles, this);
+    cr->show();
+
 }
 
 SmartCode::~SmartCode()
