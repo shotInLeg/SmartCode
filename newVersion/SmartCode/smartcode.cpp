@@ -7,6 +7,7 @@
 #include "dialogs/s_check_unsave_changes/s_check_unsave_changes.h"
 #include "dialogs/s_confirm_remove/s_confirm_remove.h"
 #include "dialogs/s_add_new_entry/s_add_new_entry.h"
+#include "dialogs/s_git_commit/s_git_commit.h"
 
 SmartCode::SmartCode(QWidget *parent) :
     QMainWindow(parent),
@@ -117,6 +118,29 @@ SmartCode::SmartCode(QWidget *parent) :
     SAddNewEntry* ane = new SAddNewEntry(types, basePath, this);
     ane->show();
 
+
+
+    QVector<QPair<QString, QString> > untrackedFiles = {
+        {"new", "1.txt"},
+        {"modified", "2.txt"},
+        {"modified", "3.txt"},
+        {"new", "4.txt"},
+        {"modified", "5.txt"},
+        {"new", "6.txt"},
+        {"modified", "7.txt"},
+        {"new", "8.txt"},
+        {"modified", "9.txt"},
+        {"new", "10.txt"}
+    };
+
+    QVector<QPair<QString, QString> > trackedFiles = {
+        {"modified", "11.txt"},
+        {"new", "12.txt"}
+    };
+
+
+    SGitCommit* gc = new SGitCommit(untrackedFiles, trackedFiles, this);
+    gc->show();
 }
 
 SmartCode::~SmartCode()
