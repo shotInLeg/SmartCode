@@ -6,6 +6,7 @@
 #include "dialogs/s_create_new_project/s_create_new_project.h"
 #include "dialogs/s_check_unsave_changes/s_check_unsave_changes.h"
 #include "dialogs/s_confirm_remove/s_confirm_remove.h"
+#include "dialogs/s_add_new_entry/s_add_new_entry.h"
 
 SmartCode::SmartCode(QWidget *parent) :
     QMainWindow(parent),
@@ -56,8 +57,8 @@ SmartCode::SmartCode(QWidget *parent) :
 
     QString basePath = "/Users/shotinleg/";
     QVector<QPair<QString, QString> > types = {
-        {"dir", "Папка"},
-        {"aml_file", "AML файл"}
+        {"*", "Папка"},
+        {"*.aml", "AML файл"}
     };
 
     SCreateNewEntry* ce = new SCreateNewEntry(types, basePath, this);
@@ -112,6 +113,9 @@ SmartCode::SmartCode(QWidget *parent) :
 
     SConfirmRemove* cr = new SConfirmRemove(removeFiles, this);
     cr->show();
+
+    SAddNewEntry* ane = new SAddNewEntry(types, basePath, this);
+    ane->show();
 
 }
 

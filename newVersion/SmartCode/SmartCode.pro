@@ -29,21 +29,24 @@ SOURCES += \
     dialogs/s_create_new_entry/s_create_new_entry.cpp \
     dialogs/s_create_new_project/s_create_new_project.cpp \
     dialogs/s_check_unsave_changes/s_check_unsave_changes.cpp \
-    dialogs/s_confirm_remove/s_confirm_remove.cpp
+    dialogs/s_confirm_remove/s_confirm_remove.cpp \
+    dialogs/s_add_new_entry/s_add_new_entry.cpp
 
 HEADERS += \
         smartcode.h \
     dialogs/s_create_new_entry/s_create_new_entry.h \
     dialogs/s_create_new_project/s_create_new_project.h \
     dialogs/s_check_unsave_changes/s_check_unsave_changes.h \
-    dialogs/s_confirm_remove/s_confirm_remove.h
+    dialogs/s_confirm_remove/s_confirm_remove.h \
+    dialogs/s_add_new_entry/s_add_new_entry.h
 
 FORMS += \
         smartcode.ui \
     dialogs/s_create_new_entry/s_create_new_entry.ui \
     dialogs/s_create_new_project/s_create_new_project.ui \
     dialogs/s_check_unsave_changes/s_check_unsave_changes.ui \
-    dialogs/s_confirm_remove/s_confirm_remove.ui
+    dialogs/s_confirm_remove/s_confirm_remove.ui \
+    dialogs/s_add_new_entry/s_add_new_entry.ui
 
 RESOURCES += \
     resources.qrc
