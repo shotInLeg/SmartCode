@@ -19,10 +19,8 @@ SCheckUnsaveChanges::SCheckUnsaveChanges(const QVector<QString> &unsaveFiles,
 
     // Задаем настрокйи таблице с файлами
     ui->twListUnsaveFiles->setRowCount(this->unsaveFiles.size());
-    ui->twListUnsaveFiles->horizontalHeader()->hide();
-    ui->twListUnsaveFiles->verticalHeader()->hide();
     ui->twListUnsaveFiles->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    ui->twListUnsaveFiles->horizontalHeader()->setStretchLastSection( true );
+    ui->twListUnsaveFiles->horizontalHeader()->setStretchLastSection(true);
 
     // Заполняем таблицу с файлами
     int i = 0;
