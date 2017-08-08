@@ -1,6 +1,5 @@
 #include "s_git_commit.h"
 #include "ui_s_git_commit.h"
-#include <QDebug>
 
 SGitCommit::SGitCommit(QWidget *parent) :
     QDialog(parent),
