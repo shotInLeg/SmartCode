@@ -75,6 +75,15 @@ void SGitCommit::updateTracked()
     {
         ui->lwTrackedFiles->addItem(item.second);
     }
+
+    if(!trackedFiles.isEmpty() && !ui->pteCommit->toPlainText().isEmpty())
+    {
+        ui->bCommit->setEnabled(true);
+    }
+    else
+    {
+        ui->bCommit->setEnabled(false);
+    }
 }
 
 void SGitCommit::addToUntracked(int index)
@@ -156,7 +165,7 @@ void SGitCommit::on_bCancel_clicked()
 
 void SGitCommit::on_pteCommit_textChanged()
 {
-    if( !ui->pteCommit->toPlainText().isEmpty() )
+    if(!trackedFiles.isEmpty() && !ui->pteCommit->toPlainText().isEmpty())
     {
         ui->bCommit->setEnabled(true);
     }
@@ -164,4 +173,16 @@ void SGitCommit::on_pteCommit_textChanged()
     {
         ui->bCommit->setEnabled(false);
     }
+}
+
+void SGitCommit::on_lwUntrackedFiles_doubleClicked(const QModelIndex &index)
+{
+    QString file = untrackedFiles.at(index.row()).second;
+    emit viewChanges(file);
+}
+
+void SGitCommit::on_lwTrackedFiles_doubleClicked(const QModelIndex &index)
+{
+    QString file = trackedFiles.at(index.row()).second;
+    emit viewChanges(file);
 }

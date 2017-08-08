@@ -80,7 +80,11 @@ SmartCode::SmartCode(QWidget *parent) :
 
     QString baseProjectPath = "/Users/shotinleg/";
 
-    SCreateNewProject* cp = new SCreateNewProject(langs, baseInterpreterPath, projectTypes, baseProjectPath, this);
+    SCreateNewProject* cp = new SCreateNewProject(langs,
+                                                  baseInterpreterPath,
+                                                  projectTypes,
+                                                  baseProjectPath,
+                                                  this);
     cp->show();
 
     QVector<QString> unsaveFiles = {
@@ -121,21 +125,21 @@ SmartCode::SmartCode(QWidget *parent) :
 
 
     QVector<QPair<QString, QString> > untrackedFiles = {
-        {"new", "1.txt"},
-        {"modified", "2.txt"},
-        {"modified", "3.txt"},
-        {"new", "4.txt"},
-        {"modified", "5.txt"},
-        {"new", "6.txt"},
-        {"modified", "7.txt"},
-        {"new", "8.txt"},
-        {"modified", "9.txt"},
-        {"new", "10.txt"}
+        {"new", "ProjectFolder/Sources/1.txt"},
+        {"modified", "ProjectFolder/Sources/2.txt"},
+        {"modified", "ProjectFolder/Sources/3.txt"},
+        {"new", "ProjectFolder/Sources/4.txt"},
+        {"modified", "ProjectFolder/Sources/5.txt"},
+        {"new", "ProjectFolder/Sources/6.txt"},
+        {"modified", "ProjectFolder/Sources/7.txt"},
+        {"new", "ProjectFolder/Sources/8.txt"},
+        {"modified", "ProjectFolder/Sources/9.txt"},
+        {"new", "ProjectFolder/Sources/10.txt"}
     };
 
     QVector<QPair<QString, QString> > trackedFiles = {
-        {"modified", "11.txt"},
-        {"new", "12.txt"}
+        {"modified", "ProjectFolder/Sources/11.txt"},
+        {"new", "ProjectFolder/Sources/12.txt"}
     };
 
 

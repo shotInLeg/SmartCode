@@ -23,6 +23,7 @@ signals:
     void commit(QVector<QPair<QString, QString> >,
                 QVector<QPair<QString, QString> >,
                 const QString&);
+    void viewChanges(QString);
     void canceled();
 
 private slots:
@@ -30,10 +31,12 @@ private slots:
     void on_bAddToUntracked_clicked();
 
     void on_bCommit_clicked();
-
     void on_bCancel_clicked();
 
     void on_pteCommit_textChanged();
+
+    void on_lwUntrackedFiles_doubleClicked(const QModelIndex &index);
+    void on_lwTrackedFiles_doubleClicked(const QModelIndex &index);
 
 private:
     void updateUntracked();
