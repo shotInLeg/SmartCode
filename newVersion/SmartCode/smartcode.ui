@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>SmartCode</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="ltCentralWidget">
     <property name="spacing">
@@ -44,9 +47,45 @@
          <property name="spacing">
           <number>0</number>
          </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
          <property name="bottomMargin">
           <number>0</number>
          </property>
+         <item>
+          <layout class="QHBoxLayout" name="lLeftBarToolBar"/>
+         </item>
+         <item>
+          <widget class="QTreeWidget" name="twProjectTree">
+           <property name="minimumSize">
+            <size>
+             <width>250</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>500</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border: 0px solid black;</string>
+           </property>
+           <property name="animated">
+            <bool>true</bool>
+           </property>
+           <attribute name="headerVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
+          </widget>
+         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -56,6 +95,24 @@
          </item>
          <item>
           <widget class="QTabWidget" name="twOpenedFiles">
+           <property name="minimumSize">
+            <size>
+             <width>600</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="documentMode">
+            <bool>true</bool>
+           </property>
+           <property name="tabsClosable">
+            <bool>true</bool>
+           </property>
+           <property name="movable">
+            <bool>true</bool>
+           </property>
            <widget class="QWidget" name="tbOpenedFile1">
             <attribute name="title">
              <string>Current File</string>
@@ -222,7 +279,7 @@
   <action name="aNewFile">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/new_file.png</normaloff>:/icons/resources/new_file.png</iconset>
+     <normaloff>:/icons/resources/icons/new_file.png</normaloff>:/icons/resources/icons/new_file.png</iconset>
    </property>
    <property name="text">
     <string>$NewFile</string>
@@ -240,7 +297,7 @@
   <action name="aAddFile">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/add_file.png</normaloff>:/icons/resources/add_file.png</iconset>
+     <normaloff>:/icons/resources/icons/add_file.png</normaloff>:/icons/resources/icons/add_file.png</iconset>
    </property>
    <property name="text">
     <string>$AddFile</string>
@@ -255,7 +312,7 @@
   <action name="aDeleteFile">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/delete_file.png</normaloff>:/icons/resources/delete_file.png</iconset>
+     <normaloff>:/icons/resources/icons/delete_file.png</normaloff>:/icons/resources/icons/delete_file.png</iconset>
    </property>
    <property name="text">
     <string>$DeleteFile</string>
@@ -270,7 +327,7 @@
   <action name="aSaveCurrentFile">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/save.png</normaloff>:/icons/resources/save.png</iconset>
+     <normaloff>:/icons/resources/icons/save.png</normaloff>:/icons/resources/icons/save.png</iconset>
    </property>
    <property name="text">
     <string>$SaveCurrentFile</string>
@@ -285,7 +342,7 @@
   <action name="aSaveAllProjectFiles">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/save_project.png</normaloff>:/icons/resources/save_project.png</iconset>
+     <normaloff>:/icons/resources/icons/save_project.png</normaloff>:/icons/resources/icons/save_project.png</iconset>
    </property>
    <property name="text">
     <string>$SaveAllProjectFiles</string>
@@ -305,7 +362,7 @@
   <action name="aStart">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/start.png</normaloff>:/icons/resources/start.png</iconset>
+     <normaloff>:/icons/resources/icons/start.png</normaloff>:/icons/resources/icons/start.png</iconset>
    </property>
    <property name="text">
     <string>$Start</string>
@@ -320,7 +377,7 @@
   <action name="aStartDebuging">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/debug.png</normaloff>:/icons/resources/debug.png</iconset>
+     <normaloff>:/icons/resources/icons/debug.png</normaloff>:/icons/resources/icons/debug.png</iconset>
    </property>
    <property name="text">
     <string>$StartDebuging</string>
@@ -335,7 +392,7 @@
   <action name="aPanelTerminal">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/resources/terminal.png</normaloff>:/icons/resources/terminal.png</iconset>
+     <normaloff>:/icons/resources/icons/terminal.png</normaloff>:/icons/resources/icons/terminal.png</iconset>
    </property>
    <property name="text">
     <string>$Terminal</string>

@@ -31,7 +31,15 @@ SOURCES += \
     dialogs/s_check_unsave_changes/s_check_unsave_changes.cpp \
     dialogs/s_confirm_remove/s_confirm_remove.cpp \
     dialogs/s_add_new_entry/s_add_new_entry.cpp \
-    dialogs/s_git_commit/s_git_commit.cpp
+    dialogs/s_git_commit/s_git_commit.cpp \
+    menu.cpp \
+    toolbar.cpp \
+    project_toolbar.cpp \
+    codeeditor_toolbar.cpp \
+    workbar.cpp \
+    leftbar.cpp \
+    widgets/s_code_editor/s_code_editor.cpp \
+    widgets/s_highlighter/s_highlighter.cpp
 
 HEADERS += \
         smartcode.h \
@@ -40,7 +48,10 @@ HEADERS += \
     dialogs/s_check_unsave_changes/s_check_unsave_changes.h \
     dialogs/s_confirm_remove/s_confirm_remove.h \
     dialogs/s_add_new_entry/s_add_new_entry.h \
-    dialogs/s_git_commit/s_git_commit.h
+    dialogs/s_git_commit/s_git_commit.h \
+    widgets/s_code_editor/s_code_editor.h \
+    widgets/s_highlighter/s_highlighter.h \
+    resources/highlighter/lgc.hp
 
 FORMS += \
         smartcode.ui \

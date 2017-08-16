@@ -1,5 +1,6 @@
 #include "smartcode.h"
 #include "ui_smartcode.h"
+#include <QDebug>
 
 
 #include "dialogs/s_create_new_entry/s_create_new_entry.h"
@@ -14,20 +15,13 @@ SmartCode::SmartCode(QWidget *parent) :
     ui(new Ui::SmartCode)
 {
     ui->setupUi(this);
-
-
-
-    QComboBox* cc = new QComboBox;
-    cc->addItem("sum =Int(a =Int, b =Int)");
-    cc->addItem("applicate =List(lst =List, aplicator =Int(Int, Int))");
-    cc->addItem("sort =List(lst =List, predicat =Bool(Int, Int))");
-    ui->toolBar->addWidget(cc);
-
+    QFontDatabase::addApplicationFont(":/fonts/resources/fonts/FiraSans-Regular.ttf");
 
     QComboBox * cei = new QComboBox(this);
-    cei->addItem("sum =Int(a =Int, b =Int)");
-    cei->addItem("applicate =List(lst =List, aplicator =Int(Int, Int))");
-    cei->addItem("sort =List(lst =List, predicat =Bool(Int, Int))");
+    cei->addItem("main() =Int");
+    cei->addItem("Point.new() =Point");
+    cei->addItem("Point.new(x, y, x) =Point(Double, Double, Double)");
+    cei->addItem("Point.sum() =Double");
 
     QToolBar * tbb = new QToolBar(this);
     //tbb->setLayout(new QHBoxLayout());
@@ -47,14 +41,12 @@ SmartCode::SmartCode(QWidget *parent) :
 
     QToolBar* tb = new QToolBar(this);
     tb->setIconSize(QSize(16, 16));
-    QTreeWidget* projectTree = new QTreeWidget(this);
 
     tb->addAction(ui->aAddFile);
     tb->addAction(ui->aDeleteFile);
     tb->addWidget(treeView);
 
-    ui->lLeftBar->addWidget(tb);
-    ui->lLeftBar->addWidget(projectTree);
+    ui->lLeftBarToolBar->addWidget(tb);
 
     QString basePath = "/Users/shotinleg/";
     QVector<QPair<QString, QString> > types = {
@@ -145,9 +137,12 @@ SmartCode::SmartCode(QWidget *parent) :
 
     SGitCommit* gc = new SGitCommit(untrackedFiles, trackedFiles, this);
     gc->show();
+
+    showDirTree("/Users/shotinleg/Documents/Projects/Qt/SmartCode/newVersion/SmartCode");
 }
 
 SmartCode::~SmartCode()
 {
     delete ui;
 }
+
