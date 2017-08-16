@@ -1,0 +1,39 @@
+[syntaxType] [keyword]
+keyword defun
+type int
+operator \x0028
+
+LIST OF RegEX to SYMBOLS
+\x0028 					(
+\x0029 					(
+\x007B 					{
+\x007D 					}
+\x005B 					[
+\x005D 					]
+\x003B 					;
+
+\x002B+\x002B+ 			++
+\x002D+\x002D 			--
+\x002B 					+
+\x002D 					-
+\x002A 					*
+\x002F 					/
+
+\x005C 					\
+\x0025 					%
+\x005E 					^
+\x003C+\x003D 			<=
+\x003E+\x003D 			=>
+\x0021+\x003D 			!=
+\x003D+\x003D 			==
+\x003E 					>
+\x003C 					<
+\x0021 					!
+\x003D 					=
+\x003F 					?
+\x003A 					:
+\x0026+\x0026 			&&
+\x007C+\x007C 			||
+\x007E 					~
+\x0026 					&
+\x007C 					|*/
