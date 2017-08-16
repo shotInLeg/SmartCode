@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>$GitCommit</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="100,5,1,1">
    <item>
