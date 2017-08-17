@@ -8,7 +8,6 @@ SCodeEditor::SCodeEditor(QWidget *parent): QWidget(parent)
 
     //QTextEdit* ed = new QTextEdit;
 
-
     lineNumbers = new LineNumberArea(this);
     lineNumbers->setMinimumWidth(25);
     //lineNumbers->setStyleSheet("background: rgb(80,80,80);");
@@ -17,7 +16,7 @@ SCodeEditor::SCodeEditor(QWidget *parent): QWidget(parent)
     saveStatus->setMinimumWidth(20);
     //saveStatus->setStyleSheet("background: rgb(80,80,80);");
 
-    codeArea = new CodeArea;
+    codeArea = new CodeArea(this);
     codeArea->setStyleSheet("border: 0px solid black;");
 
 
@@ -184,34 +183,4 @@ void SCodeEditor::updateLineNumbersWidth(int /*newBlockCount*/)
     }
 
     lineNumbers->setMinimumWidth(lineNumbersWidth());
-}
-
-
-CodeArea::CodeArea(QWidget *parent) : QPlainTextEdit(parent)
-{
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
-}
-
-void CodeArea::resizeEvent(QResizeEvent *e)
-{}
-
-
-void CodeArea::highlightCurrentLine()
-{
-    QList<QTextEdit::ExtraSelection> extraSelections;
-
-    if (!isReadOnly()) {
-        QTextEdit::ExtraSelection selection;
-
-        QColor lineColor = QColor(110,110,110, 125).lighter(160);
-
-        //selection
-        selection.format.setBackground(lineColor);
-        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-        selection.cursor = textCursor();
-        selection.cursor.clearSelection();
-        extraSelections.append(selection);
-    }
-
-    setExtraSelections(extraSelections);
 }

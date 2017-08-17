@@ -39,7 +39,8 @@ SOURCES += \
     workbar.cpp \
     leftbar.cpp \
     widgets/s_code_editor/s_code_editor.cpp \
-    widgets/s_highlighter/s_highlighter.cpp
+    widgets/s_highlighter/s_highlighter.cpp \
+    widgets/s_code_editor/code_area.cpp
 
 HEADERS += \
         smartcode.h \

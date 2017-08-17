@@ -7,6 +7,8 @@
 #include <QToolButton>
 #include <QLabel>
 #include <QComboBox>
+#include <QAbstractItemModel>
+#include <QStringListModel>
 
 #include <QTextEdit>
 
@@ -39,6 +41,8 @@ private:
                                QTreeWidgetItem *item = nullptr);
 
     SCodeEditor *openTab(const QString& tabName);
+
+    QAbstractItemModel *modelFromFile(const QString& fileName, QCompleter* completer);
 
 private:
     Ui::SmartCode *ui;

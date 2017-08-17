@@ -5,6 +5,9 @@
 #include <QTextBlock>
 #include <QPlainTextEdit>
 #include <QObject>
+#include <QCompleter>
+#include <QAbstractItemView>
+#include <QScrollBar>
 
 #include <QDebug>
 #include <QLayout>
@@ -65,11 +68,27 @@ public:
 
     CodeArea(QWidget *parent = 0);
 
+public:
+    QCompleter *completer() const;
+
+    void setCompleter(QCompleter *completer);
+
+private:
+    QString textUnderCursor() const;
+
 protected:
+    void keyPressEvent(QKeyEvent *e) override;
+    void focusInEvent(QFocusEvent *e) override;
     void resizeEvent(QResizeEvent *event);
+
+private slots:
+    void insertCompletion(const QString &completion);
 
 public slots:
     void highlightCurrentLine();
+
+private:
+    QCompleter *c;
 };
 
 

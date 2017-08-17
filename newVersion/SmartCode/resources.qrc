@@ -59,4 +59,7 @@
         <file>resources/icons/terminal.png</file>
         <file>resources/icons/warning.png</file>
     </qresource>
+    <qresource prefix="/completer">
+        <file>resources/completer/lgc.cw</file>
+    </qresource>
 </RCC>
