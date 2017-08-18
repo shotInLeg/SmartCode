@@ -59,7 +59,16 @@ void SCheckUnsaveChanges::on_bSave_clicked()
 
 void SCheckUnsaveChanges::on_bNotSave_clicked()
 {
-    emit notSave();
+    QVector<QString> filesToNotSave;
+    for(int i = 0; i < checkers.size(); i++)
+    {
+        if(checkers.at(i)->isChecked())
+        {
+            filesToNotSave.push_back(unsaveFiles.at(i));
+        }
+    }
+
+    emit notSave(filesToNotSave);
     this->close();
 }
 

@@ -31,7 +31,7 @@ private slots:
 
 signals:
     void saveFiles(QVector<QString> filesToSave);
-    void notSave();
+    void notSave(QVector<QString> filesToSave);
     void canceled();
     void viewChanges(QString file);
 
