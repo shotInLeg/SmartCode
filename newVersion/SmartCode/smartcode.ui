@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>933</width>
+    <width>1061</width>
     <height>578</height>
    </rect>
   </property>
@@ -97,7 +97,7 @@
           <widget class="QTabWidget" name="twOpenedFiles">
            <property name="minimumSize">
             <size>
-             <width>600</width>
+             <width>900</width>
              <height>0</height>
             </size>
            </property>
@@ -156,7 +156,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>933</width>
+     <width>1061</width>
      <height>22</height>
     </rect>
    </property>

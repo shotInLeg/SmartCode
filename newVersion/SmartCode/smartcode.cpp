@@ -16,11 +16,13 @@ SmartCode::SmartCode(QWidget *parent) :
 {
     ui->setupUi(this);
     QFontDatabase::addApplicationFont(":/fonts/resources/fonts/FiraSans-Regular.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/resources/fonts/FiraSans-SemiBold.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/resources/fonts/FiraSans-Italic.ttf");
 
     QComboBox * cei = new QComboBox(this);
     cei->addItem("main() =Int");
-    cei->addItem("Point.new() =Point");
-    cei->addItem("Point.new(x, y, x) =Point(Double, Double, Double)");
+    cei->addItem("Cell.new() =Cell");
+    cei->addItem("Cell.new(x, y, status) =Cell(UInt, UInt, <!Int == 0 || Int == 1!>)");
     cei->addItem("Point.sum() =Double");
 
     QToolBar * tbb = new QToolBar(this);
@@ -138,7 +140,7 @@ SmartCode::SmartCode(QWidget *parent) :
     SGitCommit* gc = new SGitCommit(untrackedFiles, trackedFiles, this);
     gc->show();
 
-    showDirTree("/Users/shotinleg/Documents/Projects/Qt/SmartCode/newVersion/SmartCode");
+    showDirTree("/Users/shotinleg/Documents/Projects/SmartCode/GameOfLife");
 }
 
 SmartCode::~SmartCode()
@@ -167,5 +169,14 @@ QAbstractItemModel *SmartCode::modelFromFile(const QString &fileName, QCompleter
         QApplication::restoreOverrideCursor();
     #endif
         return new QStringListModel(words, completer);
+}
+
+void SmartCode::codeEditorClosed(SCodeEditor *ce, const QString &data)
+{
+    QString path = codeEditorFiles[ce];
+    if(unsavedFiles.contains(path))
+    {
+
+    }
 }
 

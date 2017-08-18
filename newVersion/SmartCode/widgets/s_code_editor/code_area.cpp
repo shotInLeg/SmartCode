@@ -1,7 +1,8 @@
 #include "s_code_editor.h"
 
-CodeArea::CodeArea(QWidget *parent) : QPlainTextEdit(parent), c(0)
+CodeArea::CodeArea(SCodeEditor *parent) : QPlainTextEdit(parent), c(0)
 {
+    this->codeEditor = parent;
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 }
 

@@ -7,7 +7,17 @@
 
 void SmartCode::on_twProjectTree_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
-    openTab(item->text(column));
+    if(treeWidgetFiles.contains(item))
+    {
+        SCodeEditor* ce = openTab(item->text(column));
+        viewFileInCodeArea(ce, treeWidgetFiles[item]);
+        codeEditorFiles[ce] = treeWidgetFiles[item];
+
+        QObject::connect(ce, SIGNAL(changed(SCodeEditor*)),
+                         this, SLOT(codeEditorChanged(SCodeEditor*)));
+        QObject::connect(ce, SIGNAL(destroyed(QObject*)),
+                         ce, SLOT(deleteLater()));
+    }
 }
 
 
@@ -24,7 +34,7 @@ void SmartCode::recoursiveShowDirTree(const QDir &startDir, QTreeWidgetItem *ite
     if(item == nullptr)
     {
         item = new QTreeWidgetItem(ui->twProjectTree);
-        item->setIcon(0, QIcon(":/icons/resources/icons/dir_closed.png"));
+        item->setIcon(0, QIcon(":/icons/resources/icons/dir_opened.png"));
         item->setText(0, startDir.dirName());
         ui->twProjectTree->addTopLevelItem(item);
     }
@@ -60,5 +70,6 @@ void SmartCode::recoursiveShowDirTree(const QDir &startDir, QTreeWidgetItem *ite
         QTreeWidgetItem *subItem = new QTreeWidgetItem(item);
         subItem->setIcon(0, QIcon(":/icons/resources/icons/source_code.png"));
         subItem->setText(0, file.fileName() );
+        treeWidgetFiles[subItem] = file.filePath();
     }
 }

@@ -40,7 +40,8 @@ SOURCES += \
     leftbar.cpp \
     widgets/s_code_editor/s_code_editor.cpp \
     widgets/s_highlighter/s_highlighter.cpp \
-    widgets/s_code_editor/code_area.cpp
+    widgets/s_code_editor/code_area.cpp \
+    dialog_slots.cpp
 
 HEADERS += \
         smartcode.h \

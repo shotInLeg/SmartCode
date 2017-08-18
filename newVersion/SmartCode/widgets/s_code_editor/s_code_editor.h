@@ -32,22 +32,32 @@ class SCodeEditor : public QWidget
 
 public:
     SCodeEditor(QWidget *parent);
+    virtual ~SCodeEditor();
 
 public:
     void lineNumbersPaintEvent(QPaintEvent *event);
     void saveStatusPaintEvent(QPaintEvent* event);
+    void codeAreaPaintEvent(QPaintEvent *event);
     void errorInfoPaintEvent(QPaintEvent* event);
     int lineNumbersWidth();
 
 public:
     void markLineIsUnsaved(int row);
+    void markLineIsSaved(int row);
     void markLineIsWrong(int row, const QString& text);
+    void setMaxSymbolsInRow(int maxSymbols);
 
     CodeArea *codeWidget() const;
 
 private slots:
     void updateLineNumbers(const QRect &rect, int dy);
     void updateLineNumbersWidth(int);
+
+    void codeAreaChanged();
+
+signals:
+    void closed(SCodeEditor*, QString);
+    void changed(SCodeEditor*);
 
 private:
     QWidget* lineNumbers;
@@ -56,7 +66,9 @@ private:
     QWidget* errorInfo;
 
     QVector<int> unsaveRows;
+    QVector<int> saveRows;
     QMap<int, QString> errors;
+    int maxSymbolsInRow;
 };
 
 class CodeArea : public QPlainTextEdit
@@ -66,7 +78,7 @@ class CodeArea : public QPlainTextEdit
 public:
     friend class SCodeEditor;
 
-    CodeArea(QWidget *parent = 0);
+    CodeArea(SCodeEditor *parent = 0);
 
 public:
     QCompleter *completer() const;
@@ -79,7 +91,11 @@ private:
 protected:
     void keyPressEvent(QKeyEvent *e) override;
     void focusInEvent(QFocusEvent *e) override;
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
+    void paintEvent(QPaintEvent* e) override {
+        codeEditor->codeAreaPaintEvent(e);
+        QPlainTextEdit::paintEvent(e);
+    }
 
 private slots:
     void insertCompletion(const QString &completion);
@@ -89,6 +105,7 @@ public slots:
 
 private:
     QCompleter *c;
+    SCodeEditor *codeEditor;
 };
 
 
@@ -157,8 +174,7 @@ public:
     {}
 
 protected:
-    void paintEvent(QPaintEvent *event)
-    {}
+    void paintEvent(QPaintEvent *event);
 };
 
 
@@ -171,8 +187,7 @@ public:
     {}
 
 protected:
-    void paintEvent(QPaintEvent *event)
-    {}
+    void paintEvent(QPaintEvent *event);
 };
 
 class GitInfoArea : public QWidget
@@ -182,8 +197,7 @@ public:
     {}
 
 protected:
-    void paintEvent(QPaintEvent *event)
-    {}
+    void paintEvent(QPaintEvent *event);
 };
 
 #endif // CODEEDITOR_H

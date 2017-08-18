@@ -7,16 +7,18 @@ SCodeEditor::SCodeEditor(QWidget *parent): QWidget(parent)
     //pe->setGeometry(pe->rect().x(), pe->rect().y(), 200, 400);
 
     //QTextEdit* ed = new QTextEdit;
+    maxSymbolsInRow = 100;
 
     lineNumbers = new LineNumberArea(this);
     lineNumbers->setMinimumWidth(25);
     //lineNumbers->setStyleSheet("background: rgb(80,80,80);");
 
     saveStatus = new SaveStatusArea(this);
-    saveStatus->setMinimumWidth(20);
+    saveStatus->setMinimumWidth(13);
     //saveStatus->setStyleSheet("background: rgb(80,80,80);");
 
     codeArea = new CodeArea(this);
+    codeArea->setMinimumWidth(480);
     codeArea->setStyleSheet("border: 0px solid black;");
 
 
@@ -43,7 +45,17 @@ SCodeEditor::SCodeEditor(QWidget *parent): QWidget(parent)
 
     connect(codeArea, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumbersWidth(int)));
     connect(codeArea, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumbers(QRect,int)));
+    connect(codeArea, SIGNAL(textChanged()), this, SLOT(codeAreaChanged()));
     //connect(codeArea, SIGNAL(cursorPositionChanged()), codeArea, SLOT(highlightCurrentLine()));
+}
+
+SCodeEditor::~SCodeEditor()
+{
+    emit closed(this, codeArea->toPlainText());
+    delete lineNumbers;
+    delete saveStatus;
+    delete codeArea;
+    delete errorInfo;
 }
 
 void SCodeEditor::lineNumbersPaintEvent(QPaintEvent *event)
@@ -93,8 +105,17 @@ void SCodeEditor::saveStatusPaintEvent(QPaintEvent *event)
             if( unsaveRows.contains(blockNumber) )
             {
                 painter.setPen(Qt::white);
-                painter.drawText(10, top, saveStatus->width(),
-                                 fontMetrics().height(), Qt::AlignVCenter, "*");
+
+                painter.fillRect(QRect(10, top, saveStatus->width(), codeArea->fontMetrics().height()),
+                                 QBrush(QColor(255, 0, 0)));
+            }
+
+            if( saveRows.contains(blockNumber) )
+            {
+                painter.setPen(Qt::white);
+
+                painter.fillRect(QRect(10, top, saveStatus->width(), codeArea->fontMetrics().height()),
+                                 QBrush(QColor(0, 255, 0)));
             }
         }
 
@@ -103,6 +124,21 @@ void SCodeEditor::saveStatusPaintEvent(QPaintEvent *event)
         bottom = top + (int) codeArea->blockBoundingRect(block).height();
         ++blockNumber;
     }
+}
+
+void SCodeEditor::codeAreaPaintEvent(QPaintEvent *event)
+{
+    QPainter linePainter(codeArea->viewport());
+    linePainter.setPen(Qt::gray);
+
+    int y1 = event->rect().topLeft().y();
+    int y2 = event->rect().bottomLeft().y();
+    int x = event->rect().topLeft().x();
+    x += codeArea->fontMetrics().width("x") * maxSymbolsInRow;
+
+    qDebug() << x << " " << y1 << " " << x << " " << y2;
+
+    linePainter.drawLine(x, 0, x, 500);
 }
 
 void SCodeEditor::errorInfoPaintEvent(QPaintEvent *event)
@@ -157,6 +193,11 @@ int SCodeEditor::lineNumbersWidth()
     return space+10;
 }
 
+void SCodeEditor::setMaxSymbolsInRow(int maxSymbols)
+{
+    maxSymbolsInRow = maxSymbols;
+}
+
 void SCodeEditor::updateLineNumbers(const QRect& rect, int dy)
 {
     if(dy)
@@ -176,11 +217,27 @@ void SCodeEditor::updateLineNumbers(const QRect& rect, int dy)
 
 void SCodeEditor::updateLineNumbersWidth(int /*newBlockCount*/)
 {
-    if(codeArea->blockCount() > 10)
+    if(codeArea->blockCount() > 24)
     {
-        errors[10] = "a is unused";
-        unsaveRows.push_back(10);
+        errors[24] = "expression need brackets";
     }
 
+
+    saveRows.clear();
+    for(int i = 0; i < codeArea->blockCount(); i++)
+    {
+        if(i == 8)
+            continue;
+        saveRows.push_back(i);
+    }
+
+    unsaveRows.clear();
+    unsaveRows.push_back(8);
+
     lineNumbers->setMinimumWidth(lineNumbersWidth());
+}
+
+void SCodeEditor::codeAreaChanged()
+{
+    emit changed(this);
 }
