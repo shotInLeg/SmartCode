@@ -14,7 +14,8 @@ SCodeEditor *SmartCode::openTab(const QString &tabName)
 
     SHighlighter * h = new SHighlighter(te->codeWidget()->document());
     h->updateHighlightRules(":/highlighter/resources/highlighter/lgc.hp");
-    te->codeWidget()->setFont(QFont("Fira Sans"));
+    //te->codeWidget()->setFont(QFont("Fira Sans", 14));
+    te->codeWidget()->setFont(QFont("Monaco", 12));
 
     ui->twOpenedFiles->addTab(te, tabName);
     ui->twOpenedFiles->setCurrentIndex(ui->twOpenedFiles->count()-1);

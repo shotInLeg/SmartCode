@@ -15,25 +15,11 @@ SmartCode::SmartCode(QWidget *parent) :
     ui(new Ui::SmartCode)
 {
     ui->setupUi(this);
+    setupMainToolBar();
+
     QFontDatabase::addApplicationFont(":/fonts/resources/fonts/FiraSans-Regular.ttf");
     QFontDatabase::addApplicationFont(":/fonts/resources/fonts/FiraSans-SemiBold.ttf");
     QFontDatabase::addApplicationFont(":/fonts/resources/fonts/FiraSans-Italic.ttf");
-
-    QComboBox * cei = new QComboBox(this);
-    cei->addItem("main() =Int");
-    cei->addItem("Cell.new() =Cell");
-    cei->addItem("Cell.new(x, y, status) =Cell(UInt, UInt, <!Int == 0 || Int == 1!>)");
-    cei->addItem("Point.sum() =Double");
-
-    QToolBar * tbb = new QToolBar(this);
-    //tbb->setLayout(new QHBoxLayout());
-    tbb->addWidget(cei);
-
-
-    ui->lCodeEditorInfo->addWidget(tbb);
-
-
-
 
 
     QComboBox* treeView = new QComboBox(this);

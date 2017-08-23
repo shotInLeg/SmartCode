@@ -2,25 +2,16 @@
 
 SCodeEditor::SCodeEditor(QWidget *parent): QWidget(parent)
 {
-    //QWidget * pe = new QWidget;
-    //pe->setMinimumWidth(25);
-    //pe->setGeometry(pe->rect().x(), pe->rect().y(), 200, 400);
-
-    //QTextEdit* ed = new QTextEdit;
     maxSymbolsInRow = 100;
 
     lineNumbers = new LineNumberArea(this);
     lineNumbers->setMinimumWidth(25);
-    //lineNumbers->setStyleSheet("background: rgb(80,80,80);");
 
     saveStatus = new SaveStatusArea(this);
     saveStatus->setMinimumWidth(13);
-    //saveStatus->setStyleSheet("background: rgb(80,80,80);");
 
     codeArea = new CodeArea(this);
     codeArea->setMinimumWidth(480);
-    codeArea->setStyleSheet("border: 0px solid black;");
-
 
     errorInfo = new ErrorInfoArea(this);
     errorInfo->setMinimumWidth(200);
@@ -46,7 +37,6 @@ SCodeEditor::SCodeEditor(QWidget *parent): QWidget(parent)
     connect(codeArea, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumbersWidth(int)));
     connect(codeArea, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumbers(QRect,int)));
     connect(codeArea, SIGNAL(textChanged()), this, SLOT(codeAreaChanged()));
-    //connect(codeArea, SIGNAL(cursorPositionChanged()), codeArea, SLOT(highlightCurrentLine()));
 }
 
 SCodeEditor::~SCodeEditor()

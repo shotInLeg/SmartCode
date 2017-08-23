@@ -2,23 +2,23 @@
 
 SHighlighter::SHighlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 {
-    keywordFormats["keyword"].setForeground(QBrush(QColor(244, 90, 0)));
-    keywordFormats["keyword"].setFontWeight(QFont::Bold);
+    keywordFormats["keyword"].setForeground(QBrush(QColor(115, 186, 197)));
+    //keywordFormats["keyword"].setFontWeight(QFont::Bold);
 
-    keywordFormats["types"].setForeground(QBrush(QColor(59, 165, 219)));
+    keywordFormats["types"].setForeground(QBrush(QColor(64, 118, 206)));
 
-    keywordFormats["operator"].setForeground(QBrush(QColor(244, 90, 0)));
+    keywordFormats["operator"].setForeground(QBrush(QColor(115, 186, 197)));
 
-    keywordFormats["operation"].setForeground(QBrush(QColor(178, 39, 39)));
+    keywordFormats["operation"].setForeground(QBrush(QColor(0, 0, 0)));
 
     keywordFormats["singleLineComment"].setForeground(Qt::gray);
     keywordFormats["multiLineComment"].setForeground(Qt::gray);
 
-    keywordFormats["numbers"].setForeground(QBrush(QColor(164, 120, 206)));
-    keywordFormats["quotation"].setForeground(QBrush(QColor(136, 187, 52)));
+    keywordFormats["numbers"].setForeground(QBrush(QColor(226, 123, 0)));
+    keywordFormats["quotation"].setForeground(QBrush(QColor(226, 123, 0)));
 
-    keywordFormats["function"].setForeground(QBrush(QColor(59, 165, 219)));
-    keywordFormats["function"].setFontItalic(true);
+    keywordFormats["function"].setForeground(QBrush(QColor(0, 0, 0)));
+    //keywordFormats["function"].setFontItalic(true);
 }
 
 void SHighlighter::updateHighlightRules(const QString &highlight_page)

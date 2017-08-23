@@ -17,6 +17,7 @@
 #include <QFont>
 #include <QFontDatabase>
 #include <QMessageBox>
+#include <QSpacerItem>
 
 #include "widgets/s_code_editor/s_code_editor.h"
 #include "widgets/s_highlighter/s_highlighter.h"
@@ -38,6 +39,8 @@ private slots:
     void on_twOpenedFiles_tabCloseRequested(int index);
 
 private:
+    void setupMainToolBar();
+
     void showDirTree(const QString& dirPath);
     void recoursiveShowDirTree(const QDir& dir,
                                QTreeWidgetItem *item = nullptr);
@@ -62,6 +65,8 @@ private slots:
 
 private:
     Ui::SmartCode *ui;
+    QComboBox* runScript;
+
     QMap<QTreeWidgetItem*, QString> treeWidgetFiles;
     QMap<SCodeEditor*, QString> codeEditorFiles;
 

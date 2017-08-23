@@ -2,21 +2,9 @@ keyword const
 keyword pub
 keyword priv
 keyword prot
-type Class
-type Int
-type UInt
-type Double
-type Str
-type List
-type Dict
-type Void
-operator #[^\n]*
-operator \x0028
-operator \x0029
-operator \x007B
-operator \x007D
-operator \x005B
-operator \x005D
+keyword this
+keyword Class
+
 operator return
 operator if
 operator else
@@ -24,6 +12,23 @@ operator for
 operator while
 operator or
 operator with
+
+type Int
+type UInt
+type Double
+type Str
+type List
+type Dict
+type Void
+type Window
+type Row
+type Button
+type TButton
+type ToolBar
+type TextEdit
+type LineEdit
+type Label
+
 operation \x003B
 operation \x002B+\x002B
 operation \x002D+\x002D
