@@ -17,8 +17,10 @@ SHighlighter::SHighlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
     keywordFormats["numbers"].setForeground(QBrush(QColor(226, 123, 0)));
     keywordFormats["quotation"].setForeground(QBrush(QColor(226, 123, 0)));
 
-    keywordFormats["function"].setForeground(QBrush(QColor(0, 0, 0)));
-    //keywordFormats["function"].setFontItalic(true);
+    keywordFormats["varMember"].setForeground(QBrush(QColor(22, 8, 147)));
+
+    //keywordFormats["function"].setForeground(QBrush(QColor(0, 0, 0)));
+    keywordFormats["function"].setFontItalic(true);
 }
 
 void SHighlighter::updateHighlightRules(const QString &highlight_page)
@@ -34,6 +36,9 @@ void SHighlighter::updateHighlightRules(const QString &highlight_page)
     QStringList typesPatterns;
     QVector<QRegExp> operators;
     QVector<QRegExp> operations;
+    QVector<QRegExp> keyexps;
+    QVector<QRegExp> typeexps;
+    QVector<QRegExp> varmember;
     while(!hpage.atEnd())
     {
         QString line = hpage.readLine();
@@ -53,20 +58,47 @@ void SHighlighter::updateHighlightRules(const QString &highlight_page)
             operators.push_back(QRegExp(key));
         else if(syntaxType == "operation")
             operations.push_back(QRegExp(key));
+        else if(syntaxType == "keyexp")
+            keyexps.push_back(QRegExp(key));
+        else if(syntaxType == "typeexp")
+            typeexps.push_back(QRegExp(key));
+        else if(syntaxType == "varmember")
+            varmember.push_back(QRegExp(key));
 
     }
 
     HighlightingRule rule;
     highlightingRules.clear();
 
-    for(int i = 0; i < operators.size(); i++)
+    rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
+    rule.format = keywordFormats["function"];
+    highlightingRules.append(rule);
+
+    for(int i = 0; i < varmember.size(); i++)
     {
-        highlightingRules.append( HighlightingRule( keywordFormats["operator"], operators.at(i)));
+        highlightingRules.append( HighlightingRule( keywordFormats["varMember"], varmember.at(i)));
     }
 
     for(int i = 0; i < operations.size(); i++)
     {
         highlightingRules.append( HighlightingRule( keywordFormats["operation"], operations.at(i)));
+    }
+
+    for(int i = 0; i < operators.size(); i++)
+    {
+        highlightingRules.append( HighlightingRule( keywordFormats["operator"], operators.at(i)));
+    }
+
+    foreach (const QString &pattern, typesPatterns)
+    {
+        rule.pattern = QRegExp(pattern);
+        rule.format = keywordFormats["types"];
+        highlightingRules.append(rule);
+    }
+
+    for(int i = 0; i < typeexps.size(); i++)
+    {
+        highlightingRules.append( HighlightingRule( keywordFormats["types"], typeexps.at(i)));
     }
 
     foreach (const QString &pattern, keywordPatterns)
@@ -76,32 +108,26 @@ void SHighlighter::updateHighlightRules(const QString &highlight_page)
         highlightingRules.append(rule);
     }
 
-    foreach (const QString &pattern, typesPatterns)
+    for(int i = 0; i < keyexps.size(); i++)
     {
-        rule.pattern = QRegExp(pattern);
-        rule.format = keywordFormats["types"];
-        highlightingRules.append(rule);
+        highlightingRules.append( HighlightingRule( keywordFormats["keyword"], keyexps.at(i)));
     }
 
     foreach (const QString &pattern, typesPatterns)
     {
-        rule.pattern = QRegExp("\\b"+pattern+"+\\x005B+[amt]+\\x005D");
+        rule.pattern = QRegExp("\\b"+pattern+"+\\x005B+\\x005D");
         rule.format = keywordFormats["types"];
         highlightingRules.append(rule);
     }
 
     classFormat.setFontWeight(QFont::Bold);
     classFormat.setForeground(Qt::darkMagenta);
-    rule.pattern = QRegExp("\\bclass+\\s+[A-Za-z0-9_]{1,40}\\s");
+    rule.pattern = QRegExp("\\b[A-Za-z0-9_]{1,40}+\\s+\\x003D+class\\s");
     rule.format = classFormat;
     highlightingRules.append(rule);
 
     rule.pattern = QRegExp("[\\^#]+include\\s");
     rule.format = keywordFormats["keyword"];
-    highlightingRules.append(rule);
-
-    rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
-    rule.format = keywordFormats["function"];
     highlightingRules.append(rule);
 
     rule.pattern = QRegExp("\\b[0-9]+\\b");

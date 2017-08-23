@@ -3,7 +3,10 @@ keyword pub
 keyword priv
 keyword prot
 keyword this
-keyword Class
+keyword class
+keyword new
+keyword plus
+keyword minus
 
 operator return
 operator if
@@ -12,23 +15,16 @@ operator for
 operator while
 operator or
 operator with
+operator in
+operator is
 
-type Int
-type UInt
-type Double
-type Str
-type List
-type Dict
-type Void
-type Window
-type Row
-type Button
-type TButton
-type ToolBar
-type TextEdit
-type LineEdit
-type Label
+typeexp <[^\s]*>
+typeexp [A-Z]{1}
+typeexp \b+[A-Z]+[A-Za-z0-9]{1,40}
 
+varmember \x002E+[a-z]+[A-Za-z0-9_]{1,40}
+
+operation \x002E
 operation \x003B
 operation \x002B+\x002B
 operation \x002D+\x002D
