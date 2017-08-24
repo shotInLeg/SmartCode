@@ -10,6 +10,7 @@ void SmartCode::setupMainToolBar()
 
     QToolBar * tbb = new QToolBar(this);
     tbb->setIconSize(QSize(16, 16));
+    tbb->setStyleSheet("");
 
     tbb->addWidget(runScript);
     tbb->addAction(ui->aStart);

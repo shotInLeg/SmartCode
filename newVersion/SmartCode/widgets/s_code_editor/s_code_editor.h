@@ -8,6 +8,8 @@
 #include <QCompleter>
 #include <QAbstractItemView>
 #include <QScrollBar>
+#include <QLabel>
+#include <QPushButton>
 
 #include <QDebug>
 #include <QLayout>

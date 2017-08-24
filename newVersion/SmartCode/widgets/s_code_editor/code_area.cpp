@@ -74,6 +74,7 @@ void CodeArea::keyPressEvent(QKeyEvent *e)
         c->setCompletionPrefix(completionPrefix);
         c->popup()->setCurrentIndex(c->completionModel()->index(0, 0));
     }
+    c->popup()->setFont(QFont("Monaco", 12));
     QRect cr = cursorRect();
     cr.setWidth(c->popup()->sizeHintForColumn(0)
                 + c->popup()->verticalScrollBar()->sizeHint().width());
@@ -114,7 +115,7 @@ void CodeArea::highlightCurrentLine()
     if (!isReadOnly()) {
         QTextEdit::ExtraSelection selection;
 
-        QColor lineColor = QColor(110,110,110, 125).lighter(160);
+        QColor lineColor = QColor(221, 221, 221);
 
         //selection
         selection.format.setBackground(lineColor);

@@ -12,10 +12,13 @@ SCodeEditor::SCodeEditor(QWidget *parent): QWidget(parent)
 
     codeArea = new CodeArea(this);
     codeArea->setMinimumWidth(480);
+    //codeArea->verticalScrollBar()->hide();
+    //codeArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    codeArea->setStyleSheet("border: 0px");
 
     errorInfo = new ErrorInfoArea(this);
     errorInfo->setMinimumWidth(200);
-    errorInfo->setStyleSheet("background: rgba(255,255,255);");
+    //errorInfo->setStyleSheet("background: rgba(255,255,255);");
 
     QHBoxLayout* mainLayout = new QHBoxLayout;
     mainLayout->setMargin(0);
@@ -34,9 +37,12 @@ SCodeEditor::SCodeEditor(QWidget *parent): QWidget(parent)
 
     this->setLayout(mainLayout);
 
-    connect(codeArea, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumbersWidth(int)));
-    connect(codeArea, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumbers(QRect,int)));
-    connect(codeArea, SIGNAL(textChanged()), this, SLOT(codeAreaChanged()));
+    connect(codeArea, SIGNAL(blockCountChanged(int)),
+            this, SLOT(updateLineNumbersWidth(int)));
+    connect(codeArea, SIGNAL(updateRequest(QRect,int)),
+            this, SLOT(updateLineNumbers(QRect,int)));
+    connect(codeArea, SIGNAL(textChanged()),
+            this, SLOT(codeAreaChanged()));
 }
 
 SCodeEditor::~SCodeEditor()
@@ -51,13 +57,16 @@ SCodeEditor::~SCodeEditor()
 void SCodeEditor::lineNumbersPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumbers);
-    painter.fillRect(event->rect(), QBrush(QColor(80,80,80)));
+    painter.fillRect(event->rect(), QBrush(QColor(255, 255, 255)));
 
 
     QTextBlock block = codeArea->firstVisibleBlock();
     int blockNumber = block.blockNumber();
-    int top = (int) codeArea->blockBoundingGeometry(block).translated(codeArea->contentOffset()).top();
-    int bottom = top + (int) codeArea->blockBoundingRect(block).height();
+    int top = static_cast<int>(codeArea
+                                    ->blockBoundingGeometry(block)
+                                    .translated(codeArea->contentOffset())
+                                    .top());
+    int bottom = top + static_cast<int>(codeArea->blockBoundingRect(block).height());
 
     while (block.isValid() && top <= event->rect().bottom())
     {
@@ -65,14 +74,14 @@ void SCodeEditor::lineNumbersPaintEvent(QPaintEvent *event)
         {
             QString number = QString::number(blockNumber + 1);
 
-            painter.setPen(Qt::white);
+            painter.setPen(Qt::gray);
             painter.drawText(10, top, lineNumbers->width(), fontMetrics().height(),
                              Qt::AlignVCenter, number);
         }
 
         block = block.next();
         top = bottom;
-        bottom = top + (int) codeArea->blockBoundingRect(block).height();
+        bottom = top + static_cast<int>(codeArea->blockBoundingRect(block).height());
         ++blockNumber;
     }
 }
@@ -80,13 +89,16 @@ void SCodeEditor::lineNumbersPaintEvent(QPaintEvent *event)
 void SCodeEditor::saveStatusPaintEvent(QPaintEvent *event)
 {
     QPainter painter(saveStatus);
-    painter.fillRect(event->rect(), QBrush(QColor(80,80,80)));
+    painter.fillRect(event->rect(), QBrush(QColor(255, 255, 255)));
 
 
     QTextBlock block = codeArea->firstVisibleBlock();
     int blockNumber = block.blockNumber();
-    int top = (int) codeArea->blockBoundingGeometry(block).translated(codeArea->contentOffset()).top();
-    int bottom = top + (int) codeArea->blockBoundingRect(block).height();
+    int top = static_cast<int>(codeArea
+                                    ->blockBoundingGeometry(block)
+                                    .translated(codeArea->contentOffset())
+                                    .top());
+    int bottom = top + static_cast<int>(codeArea->blockBoundingRect(block).height());
 
     while (block.isValid() && top <= event->rect().bottom())
     {
@@ -95,23 +107,25 @@ void SCodeEditor::saveStatusPaintEvent(QPaintEvent *event)
             if( unsaveRows.contains(blockNumber) )
             {
                 painter.setPen(Qt::white);
-
-                painter.fillRect(QRect(10, top, saveStatus->width(), codeArea->fontMetrics().height()),
-                                 QBrush(QColor(255, 0, 0)));
+                painter.fillRect(
+                    QRect(10, top, saveStatus->width(), codeArea->fontMetrics().height()),
+                    QBrush(QColor(255, 0, 0))
+                );
             }
 
             if( saveRows.contains(blockNumber) )
             {
                 painter.setPen(Qt::white);
-
-                painter.fillRect(QRect(10, top, saveStatus->width(), codeArea->fontMetrics().height()),
-                                 QBrush(QColor(0, 255, 0)));
+                painter.fillRect(
+                    QRect(10, top, saveStatus->width(), codeArea->fontMetrics().height()),
+                    QBrush(QColor(0, 255, 0))
+                );
             }
         }
 
         block = block.next();
         top = bottom;
-        bottom = top + (int) codeArea->blockBoundingRect(block).height();
+        bottom = top + static_cast<int>(codeArea->blockBoundingRect(block).height());
         ++blockNumber;
     }
 }
@@ -121,12 +135,12 @@ void SCodeEditor::codeAreaPaintEvent(QPaintEvent *event)
     QPainter linePainter(codeArea->viewport());
     linePainter.setPen(Qt::gray);
 
-    int y1 = event->rect().topLeft().y();
-    int y2 = event->rect().bottomLeft().y();
+//    int y1 = event->rect().topLeft().y();
+//    int y2 = event->rect().bottomLeft().y();
     int x = event->rect().topLeft().x();
     x += codeArea->fontMetrics().width("x") * maxSymbolsInRow;
 
-    qDebug() << x << " " << y1 << " " << x << " " << y2;
+    //qDebug() << x << " " << y1 << " " << x << " " << y2;
 
     linePainter.drawLine(x, 0, x, 500);
 }
@@ -139,8 +153,11 @@ void SCodeEditor::errorInfoPaintEvent(QPaintEvent *event)
 
     QTextBlock block = codeArea->firstVisibleBlock();
     int blockNumber = block.blockNumber();
-    int top = (int) codeArea->blockBoundingGeometry(block).translated(codeArea->contentOffset()).top();
-    int bottom = top + (int) codeArea->blockBoundingRect(block).height();
+    int top = static_cast<int>(codeArea
+                                    ->blockBoundingGeometry(block)
+                                    .translated(codeArea->contentOffset())
+                                    .top());
+    int bottom = top + static_cast<int>(codeArea->blockBoundingRect(block).height());
 
     while (block.isValid() && top <= event->rect().bottom())
     {
@@ -148,18 +165,19 @@ void SCodeEditor::errorInfoPaintEvent(QPaintEvent *event)
         {
             if( errors.contains(blockNumber))
             {
-                painter.setPen(Qt::white);
-                painter.fillRect(QRect(10, top, errorInfo->width(), codeArea->fontMetrics().height()),
-                                 QBrush(QColor(255, 0, 0)));
+                QPushButton* w = new QPushButton(errorInfo);
+                w->setGeometry(10, top, errorInfo->width(), codeArea->fontMetrics().height());
+                w->setStyleSheet("background: red;");
+                w->show();
+                w->setToolTip(errors[blockNumber]);
+                connect(w, SIGNAL(clicked(bool)), w, SLOT(hide()));
 
-                painter.drawText(10, top, errorInfo->width(),
-                                 codeArea->fontMetrics().height(), Qt::AlignVCenter, errors[blockNumber]);
             }
         }
 
         block = block.next();
         top = bottom;
-        bottom = top + (int) codeArea->blockBoundingRect(block).height();
+        bottom = top + static_cast<int>(codeArea->blockBoundingRect(block).height());
         ++blockNumber;
     }
 }
@@ -209,9 +227,8 @@ void SCodeEditor::updateLineNumbersWidth(int /*newBlockCount*/)
 {
     if(codeArea->blockCount() > 24)
     {
-        errors[24] = "expression need brackets";
+        //errors[24] = "expression need brackets";
     }
-
 
     saveRows.clear();
     for(int i = 0; i < codeArea->blockCount(); i++)

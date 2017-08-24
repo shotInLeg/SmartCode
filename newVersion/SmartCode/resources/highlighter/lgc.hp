@@ -15,11 +15,9 @@ operator for
 operator while
 operator or
 operator with
-operator in
-operator is
 
 typeexp <[^\s]*>
-typeexp [A-Z]{1}
+typeexp \b+[A-Z]{1}
 typeexp \b+[A-Z]+[A-Za-z0-9]{1,40}
 
 varmember \x002E+[a-z]+[A-Za-z0-9_]{1,40}
