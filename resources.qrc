@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/highlighter">
-        <file>resources/highlighter/lisp.hp</file>
-        <file>resources/highlighter/py.hp</file>
         <file>resources/highlighter/lgc.hp</file>
     </qresource>
     <qresource prefix="/fonts">

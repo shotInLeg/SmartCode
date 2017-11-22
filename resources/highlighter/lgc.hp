@@ -1,20 +1,20 @@
-keyword const
-keyword pub
+keyword cnst
+keyword publ
 keyword priv
 keyword prot
-keyword this
-keyword class
-keyword new
-keyword plus
-keyword minus
 
 operator return
 operator if
 operator else
 operator for
 operator while
-operator or
 operator with
+operator try
+operator catch
+operator finally
+
+hidding \x007B
+hidding \x007D
 
 typeexp <[^\s]*>
 typeexp \b+[A-Z]{1}

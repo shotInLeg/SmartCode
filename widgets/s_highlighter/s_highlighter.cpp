@@ -21,6 +21,8 @@ SHighlighter::SHighlighter(QTextDocument *parent): QSyntaxHighlighter(parent)
 
     //keywordFormats["function"].setForeground(QBrush(QColor(0, 0, 0)));
     keywordFormats["function"].setFontItalic(true);
+
+    keywordFormats["hidding"].setForeground(QBrush(QColor(176, 177, 178)));
 }
 
 void SHighlighter::updateHighlightRules(const QString &highlight_page)
@@ -39,6 +41,7 @@ void SHighlighter::updateHighlightRules(const QString &highlight_page)
     QVector<QRegExp> keyexps;
     QVector<QRegExp> typeexps;
     QVector<QRegExp> varmember;
+    QVector<QRegExp> hidding;
     while(!hpage.atEnd())
     {
         QString line = hpage.readLine();
@@ -64,7 +67,8 @@ void SHighlighter::updateHighlightRules(const QString &highlight_page)
             typeexps.push_back(QRegExp(key));
         else if(syntaxType == "varmember")
             varmember.push_back(QRegExp(key));
-
+        else if(syntaxType == "hidding")
+            hidding.push_back(QRegExp(key));
     }
 
     HighlightingRule rule;
@@ -87,6 +91,11 @@ void SHighlighter::updateHighlightRules(const QString &highlight_page)
     for(int i = 0; i < operators.size(); i++)
     {
         highlightingRules.append( HighlightingRule( keywordFormats["operator"], operators.at(i)));
+    }
+
+    for(int i = 0; i < hidding.size(); i++)
+    {
+        highlightingRules.append( HighlightingRule( keywordFormats["hidding"], hidding.at(i)));
     }
 
     foreach (const QString &pattern, typesPatterns)
