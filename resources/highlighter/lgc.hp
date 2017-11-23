@@ -15,6 +15,7 @@ operator finally
 
 hidding \x007B
 hidding \x007D
+hidding \x003B
 
 typeexp <[^\s]*>
 typeexp \b+[A-Z]{1}
